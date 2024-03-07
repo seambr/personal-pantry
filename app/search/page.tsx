@@ -16,7 +16,6 @@ function Search() {
     setInput(inputRef.current.value)
   }
   const handleSearch = (e: MouseEvent) => {
-    console.log("Making REq")
     e.preventDefault()
 
     const query: SearchCriteria = {

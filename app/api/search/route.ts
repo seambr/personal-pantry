@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
 import { SearchCriteria } from "@/interfaces/FoodInterfaces"
 export async function POST(req: NextRequest) {
-  // TODO: Fetch list of items form food api
   const r = await req.json()
   const query: SearchCriteria = r.query
 
   const url = `https://api.nal.usda.gov/fdc/v1/foods/search?`
 
   const params = new URLSearchParams({
+    // TODO: SWAP OUT API KEY WITH ENV VARIABLE
     api_key: "DEMO_KEY",
   })
 
@@ -19,8 +19,8 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify({
       query: query.query,
       dataType: ["Branded"],
-      pageSize: 25,
-      pageNumber: 2,
+      pageSize: query.pageSize < 50 ? query.pageSize : 25,
+      pageNumber: query.pageNumber,
     }),
   })
   const data = await api_res.json()
