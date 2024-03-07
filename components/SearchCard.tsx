@@ -7,6 +7,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 function SearchCard({ foodItem }: { foodItem: FoodItem }) {
   return (
     <div className="flex w-full border border-secondary shadow-md rounded-md  mt-5 mb-5 p-5 justify-between items-center">
@@ -25,7 +35,23 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
           <PopoverTrigger asChild>
             <Button variant="secondary">Edit</Button>
           </PopoverTrigger>
-          <PopoverContent></PopoverContent>
+          <PopoverContent>
+            <Table>
+              <TableCaption>Food Nutritional Data.</TableCaption>
+              <TableBody>
+                {foodItem.foodNutrients.map((e, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell className="font-medium">
+                      {e.nutrientName}
+                    </TableCell>
+                    <TableCell className="w-20 text-right">
+                      {e.value} {e.unitName}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </PopoverContent>
         </Popover>
       </div>
     </div>
