@@ -1,10 +1,10 @@
 export interface SearchCriteria {
   query: string
-  generalSearchInput: string
   pageNumber: number
-  numberOfResultsPerPage: number
   pageSize: number
+  dataType: string[]
 }
+
 export interface Nutrient {
   [key: string]: any
   derivationCode: string
