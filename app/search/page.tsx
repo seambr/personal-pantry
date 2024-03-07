@@ -6,7 +6,7 @@ import SearchResults from "@/components/SearchResults"
 
 function page() {
   return (
-    <div>
+    <div className="">
       <form action="" className="w-4/12 m-auto mt-20">
         <Label htmlFor="food-item">Food Item</Label>
         <div className="flex  gap-2">
