@@ -12,7 +12,7 @@ function SearchResults() {
       .then((r) => r.json())
       .then((data) => setResults(data))
   }, [])
-  console.log(results)
+
   return (
     <ScrollArea className="h-[650px] w-4/6 rounded-md border p-4 gap-2 m-auto mt-5">
       {results?.foods.map((r, idx) => (
