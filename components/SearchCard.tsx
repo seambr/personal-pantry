@@ -37,7 +37,9 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
           </PopoverTrigger>
           <PopoverContent>
             <Table>
-              <TableCaption>Food Nutritional Data.</TableCaption>
+              <TableCaption>
+                Per Serving of {foodItem.servingSize} {foodItem.servingSizeUnit}
+              </TableCaption>
               <TableBody>
                 {foodItem.foodNutrients.map((e, idx) => (
                   <TableRow key={idx}>
