@@ -1,14 +1,13 @@
 import { cn } from "@/lib/utils"
 import React from "react"
 
-function Logo({ className, fill, width = 100, height }) {
+function Logo({ className, fill }) {
   return (
     <svg
-      width={width}
-      height={height}
       viewBox="0 0 353 130"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={cn("", className)}
     >
       <g clip-path="url(#clip0_1129_413)">
         <path

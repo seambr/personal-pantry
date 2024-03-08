@@ -36,7 +36,7 @@ function Search() {
   }
 
   return (
-    <div className="">
+    <main className="">
       <form action="" className="w-4/12 m-auto mt-20">
         <Label htmlFor="food-item">Food Item</Label>
         <div className="flex  gap-2">
@@ -51,7 +51,7 @@ function Search() {
         </div>
       </form>
       <SearchResults results={results} />
-    </div>
+    </main>
   )
 }
 

@@ -13,6 +13,7 @@ import {
 import { Table, TableBody, TableCaption, TableCell, TableRow } from "./ui/table"
 import { cn } from "@/lib/utils"
 import Logo from "./icons/Logo"
+
 function NavMenu() {
   const pathname = usePathname()
   const user = useUser()
@@ -45,7 +46,7 @@ function NavMenu() {
           <a href="/api/auth/login">Login</a>
         </Button>
       )}
-      <Logo fill="white" className="red" />
+      <Logo fill="white" className="w-32 absolute left-32 top-10" />
       <div
         className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto mt-10`}
       >
@@ -56,7 +57,10 @@ function NavMenu() {
             }`}
             key={idx}
           >
-            <Link href={e.href}>{e.name}</Link>
+            <Link href={e.href}>
+              <span className="hidden md:inline">{e.name}</span>
+              <span className="inline md:hidden">TEST</span>
+            </Link>
           </div>
         ))}
       </div>

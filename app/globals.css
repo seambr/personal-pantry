@@ -140,6 +140,13 @@
   }
 }
 
-body {
+body,
+html {
   overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.far-text {
+  letter-spacing: 0.3em;
 }
