@@ -5,9 +5,10 @@ import { useEffect, useState } from "react"
 import Typewriter from "@/components/Typewriter"
 
 const detailArray = [
-  "Track Macros.",
-  "Scan Your Receipts.",
-  "Keep Track of Whats in Your Food.",
+  "Track your macros.",
+  "Keep track of whats in your food.",
+  "Live healthier.",
+  "Scan your receipts.",
 ]
 
 export default function Home() {
