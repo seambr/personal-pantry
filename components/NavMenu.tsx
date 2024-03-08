@@ -21,7 +21,7 @@ import { Table, TableBody, TableCaption, TableCell, TableRow } from "./ui/table"
 import { cn } from "@/lib/utils"
 import Logo from "./icons/Logo"
 
-function NavMenu() {
+function NavMenu({ className = "" }) {
   const pathname = usePathname()
   const user = useUser()
   console.log(user)
@@ -43,7 +43,12 @@ function NavMenu() {
   ]
 
   return (
-    <>
+    <div
+      className={cn(
+        "absolute w-full bottom-5 sm:relative sm:bottom-0",
+        className
+      )}
+    >
       {user.user ? (
         <Popover>
           <PopoverTrigger asChild>
@@ -76,13 +81,13 @@ function NavMenu() {
             key={idx}
           >
             <Link href={e.href}>
-              <span className="hidden md:inline">{e.name}</span>
-              <span className="inline md:hidden">{e.icon}</span>
+              <span className="hidden sm:inline">{e.name}</span>
+              <span className="inline sm:hidden">{e.icon}</span>
             </Link>
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

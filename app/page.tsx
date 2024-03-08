@@ -3,6 +3,7 @@ import Image from "next/image"
 import HomeTile from "@/components/HomeTile"
 import { useEffect, useState } from "react"
 import Typewriter from "@/components/Typewriter"
+import { Button } from "@/components/ui/button"
 
 const detailArray = [
   "Track your macros.",
@@ -13,8 +14,8 @@ const detailArray = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col justify-center h-[800px] gap-5 p-20 relative items-center">
-      <span className="text-3xl font-light relative text-center w-[600px]">
+    <main className="flex flex-col justify-center h-[800px] gap-5  relative items-center">
+      <span className="text-xl font-light relative text-center w-[600px] sm:text-3xl">
         You are what you eat, <span className="font-bold">so eat good</span>.
       </span>
 
@@ -24,6 +25,7 @@ export default function Home() {
         holdTime={500}
         className="text-md indent-5 text-left opacity-50"
       />
+      <Button>Get Started</Button>
     </main>
   )
 }
