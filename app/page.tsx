@@ -23,7 +23,7 @@ export default function Home() {
         texts={detailArray}
         delay={150}
         holdTime={500}
-        className="text-md indent-5 text-left opacity-50"
+        className="text-md text-left opacity-50"
       />
       <Button>Get Started</Button>
     </main>

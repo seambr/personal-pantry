@@ -45,33 +45,17 @@ function NavMenu({ className = "" }) {
   return (
     <div
       className={cn(
-        "absolute w-full bottom-5 sm:relative sm:bottom-0",
+        "absolute w-full bottom-5 sm:relative sm:bottom-0 flex items-center pt-10 pb-5 justify-center px-20",
         className
       )}
     >
-      {user.user ? (
-        <Popover>
-          <PopoverTrigger asChild>
-            <Avatar className="absolute top-10 right-32 w-10 h-10 rounded-full overflow-hidden cursor-pointer hidden lg:block">
-              <AvatarImage src={user.user.picture!} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </PopoverTrigger>
-          <PopoverContent>
-            <ProfileTable user={user.user} />
-          </PopoverContent>
-        </Popover>
-      ) : (
-        <Button className="absolute top-10 right-20">
-          <a href="/api/auth/login">Login</a>
-        </Button>
-      )}
       <Logo
         fill="white"
-        className="w-32 absolute left-32 top-10 hidden lg:block"
+        className="w-32 hidden lg:block absolute left-0 ml-20"
       />
+
       <div
-        className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto mt-10`}
+        className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto`}
       >
         {navLinks.map((e, idx) => (
           <div
@@ -87,6 +71,23 @@ function NavMenu({ className = "" }) {
           </div>
         ))}
       </div>
+      {user.user ? (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Avatar className="w-10 h-10 rounded-full overflow-hidden cursor-pointer hidden lg:block absolute right-0 mr-20">
+              <AvatarImage src={user.user.picture!} />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </PopoverTrigger>
+          <PopoverContent>
+            <ProfileTable user={user.user} />
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <Button className="hidden lg:block cursor-pointer absolute right-0 mr-20">
+          <a href="/api/auth/login">Login</a>
+        </Button>
+      )}
     </div>
   )
 }
