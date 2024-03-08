@@ -40,44 +40,45 @@ const Typewriter = ({
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const reversing = reversingRef.current
-      const fullText = texts[currentWordIndexRef.current % texts.length]
-      if (!reversing) {
-        // NOT REVERSING
-        currentIndexRef.current += 1
-        const newText = texts[currentWordIndexRef.current % texts.length].slice(
-          0,
-          currentIndexRef.current
-        )
+    const interval = setInterval(
+      () => {
+        const reversing = reversingRef.current
+        const fullText = texts[currentWordIndexRef.current % texts.length]
+        if (!reversing) {
+          // NOT REVERSING
+          currentIndexRef.current += 1
+          const newText = texts[
+            currentWordIndexRef.current % texts.length
+          ].slice(0, currentIndexRef.current)
 
-        updateSpan(newText, fullText)
+          updateSpan(newText, fullText)
 
-        if (currentIndexRef.current >= fullText.length) {
-          // REACHED END OF WORD : START REVERSE
-          reversingRef.current = true
-          // PAUSE FOR A LITTLE
-          pauseAndRestart(interval)
+          if (currentIndexRef.current >= fullText.length) {
+            // REACHED END OF WORD : START REVERSE
+            reversingRef.current = true
+            // PAUSE FOR A LITTLE
+            pauseAndRestart(interval)
+          }
+        } else {
+          // REVERSING
+          currentIndexRef.current -= 1
+          const newText = texts[
+            currentWordIndexRef.current % texts.length
+          ].slice(0, currentIndexRef.current)
+
+          updateSpan(newText, fullText)
+
+          if (currentIndexRef.current <= 0) {
+            // NEW WORD
+            reversingRef.current = false
+            currentIndexRef.current = 0
+            currentWordIndexRef.current += 1
+            pauseAndRestart(interval)
+          }
         }
-      } else {
-        // REVERSING
-        currentIndexRef.current -= 1
-        const newText = texts[currentWordIndexRef.current % texts.length].slice(
-          0,
-          currentIndexRef.current
-        )
-
-        updateSpan(newText, fullText)
-
-        if (currentIndexRef.current <= 0) {
-          // NEW WORD
-          reversingRef.current = false
-          currentIndexRef.current = 0
-          currentWordIndexRef.current += 1
-          pauseAndRestart(interval)
-        }
-      }
-    }, delay)
+      },
+      !reversingRef.current ? delay : Math.floor(delay * 0.65)
+    )
 
     return () => clearInterval(interval)
   }, [helperState])
