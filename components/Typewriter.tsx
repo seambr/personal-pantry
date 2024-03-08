@@ -1,45 +1,101 @@
 "use client"
+import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { useRef } from "react"
 
 const { useState, useEffect } = require("react")
 
-const Typewriter = ({ texts, delay }: { texts: string[]; delay: number }) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [reversing, setReversing] = useState(false)
+const Typewriter = ({
+  texts,
+  delay,
+  holdTime = 200,
+  className = "",
+}: {
+  texts: string[]
+  delay: number
+  holdTime: number
+  className: string
+}) => {
+  const currentIndexRef = useRef(0)
+  const reversingRef = useRef(false)
+  const hiddenSpanRef = useRef(null)
+  const spanRef = useRef(null)
+  const currentWordIndexRef = useRef(0)
+  const [helperState, setHelperState] = useState(false)
 
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
-  const widx = currentWordIndex % texts.length
-  useEffect(() => {
-    if (currentIndex < texts[widx].length && !reversing) {
-      const timeout = setTimeout(() => {
-        setCurrentIndex((prevIndex) => prevIndex + 1)
-      }, delay)
-
-      return () => clearTimeout(timeout)
-    } else if (currentIndex === texts[widx].length && !reversing) {
-      setReversing(true)
-    } else if (
-      currentIndex >= 0 &&
-      currentIndex <= texts[widx].length &&
-      reversing
-    ) {
-      const timeout = setTimeout(() => {
-        setCurrentIndex((prevIndex) => prevIndex - 1)
-      }, delay)
-
-      return () => clearTimeout(timeout)
-    } else if (currentIndex <= 0 && reversing) {
-      setReversing(false)
-      setCurrentWordIndex((old) => old + 1)
-      setCurrentIndex(0)
+  function updateSpan(newText, fullText) {
+    spanRef.current!.innerText = newText
+    if (hiddenSpanRef.current!.innerText !== fullText) {
+      hiddenSpanRef.current!.innerText = fullText
+      spanRef.current!.style.width = `${
+        hiddenSpanRef.current!.getBoundingClientRect().width
+      }px`
     }
-  }, [currentIndex, reversing, currentWordIndex])
+  }
+  function pauseAndRestart(interval) {
+    clearInterval(interval)
+    setTimeout(() => {
+      setHelperState(!helperState)
+    }, holdTime)
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const reversing = reversingRef.current
+      const fullText = texts[currentWordIndexRef.current % texts.length]
+      if (!reversing) {
+        // NOT REVERSING
+        currentIndexRef.current += 1
+        const newText = texts[currentWordIndexRef.current % texts.length].slice(
+          0,
+          currentIndexRef.current
+        )
+
+        updateSpan(newText, fullText)
+
+        if (currentIndexRef.current >= fullText.length) {
+          // REACHED END OF WORD : START REVERSE
+          reversingRef.current = true
+          // PAUSE FOR A LITTLE
+          pauseAndRestart(interval)
+        }
+      } else {
+        // REVERSING
+        currentIndexRef.current -= 1
+        const newText = texts[currentWordIndexRef.current % texts.length].slice(
+          0,
+          currentIndexRef.current
+        )
+
+        updateSpan(newText, fullText)
+
+        if (currentIndexRef.current <= 0) {
+          // NEW WORD
+          reversingRef.current = false
+          currentIndexRef.current = 0
+          currentWordIndexRef.current += 1
+          pauseAndRestart(interval)
+        }
+      }
+    }, delay)
+
+    return () => clearInterval(interval)
+  }, [helperState])
 
   return (
-    <span className="text-2xl font-light relative">
-      {texts[widx].slice(0, currentIndex)}
-    </span>
+    <>
+      <span
+        className={cn("text-2xl font-light relative h-5", className)}
+        ref={spanRef}
+      ></span>
+      <span
+        className={cn(
+          "text-2xl font-light relative h-5 max-w-fit inline p-0 m-0",
+          className + " opacity-0"
+        )}
+        ref={hiddenSpanRef}
+      ></span>
+    </>
   )
 }
 
