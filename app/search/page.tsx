@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import SearchResults from "@/components/SearchResults"
 import { SearchResponse, SearchCriteria } from "@/interfaces/FoodInterfaces"
+import axios, { isCancel, AxiosError } from "axios"
 
 function Search() {
   const inputRef = useRef(null)
@@ -24,15 +25,17 @@ function Search() {
       pageNumber: 1,
       pageSize: 25,
     }
-
-    fetch("http://localhost:3000/api/search", {
-      method: "POST",
-      body: JSON.stringify({
-        query: query,
-      }),
-    })
-      .then((r) => r.json())
-      .then((data) => setResults(data))
+    // Fetch search results
+    try {
+      axios
+        .post("http://localhost:3000/api/search", {
+          query: query,
+        })
+        .then((r) => setResults(r.data))
+    } catch {
+      // TODO: Make this an alert of some kind
+      console.log("Failed to Fetch Data")
+    }
   }
 
   return (

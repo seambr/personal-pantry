@@ -14,7 +14,7 @@ const detailArray = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col justify-center h-[800px] gap-5  relative items-center">
+    <main className="flex flex-col gap-5  relative items-center justify-center flex-grow">
       <span className="text-xl font-light relative text-center w-[600px] sm:text-3xl">
         You are what you eat, <span className="font-bold">so eat good</span>.
       </span>

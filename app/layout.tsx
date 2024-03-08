@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-        <body className={`${inter.className} bg-primary-foreground`}>
+        <body
+          className={`${inter.className} bg-primary-foreground flex flex-col`}
+        >
           <NavMenu />
           {children}
         </body>

@@ -45,7 +45,7 @@ function NavMenu({ className = "" }) {
   return (
     <div
       className={cn(
-        "absolute w-full bottom-5 sm:relative sm:bottom-0 flex items-center pt-10 pb-5 justify-center px-20",
+        "absolute w-full bottom-5 sm:relative sm:bottom-0 flex items-center pt-10 pb-5 justify-center px-20 z-50",
         className
       )}
     >

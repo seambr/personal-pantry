@@ -4,9 +4,9 @@ import React from "react"
 
 function page() {
   return (
-    <div className="">
+    <main className="flex-grow">
       <FridgeResults />
-    </div>
+    </main>
   )
 }
 

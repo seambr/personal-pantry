@@ -1,4 +1,5 @@
 import React from "react"
+import axios, { isCancel, AxiosError } from "axios"
 import { FoodItem } from "@/interfaces/FoodInterfaces"
 import { Button } from "./ui/button"
 import {
@@ -18,6 +19,39 @@ import {
 } from "@/components/ui/table"
 
 function SearchCard({ foodItem }: { foodItem: FoodItem }) {
+  function addToFridge(item: FoodItem) {
+    // FIXME: Not complete
+    try {
+      axios.post("http://localhost:3000/api/search", {
+        fdcId: item.fdcId,
+        description: item.description,
+        dataType: item.dataType,
+        gtinUpc: item.gtinUpc,
+        brandOwner: item.brandOwner,
+        brandName: item.brandName,
+        ingredients: item.ingredients,
+        marketCountry: item.marketCountry,
+        foodCategory: item.foodCategory,
+        packageWeight: item.packageWeight,
+        servingSizeUnit: item.servingSizeUnit,
+        servingSize: item.servingSize,
+        householdServingFullText: item.householdServingFullText,
+        shortDescription: item.shortDescription,
+        foodNutrients: item.foodNutrients.map((nutrient) => ({
+          nutrientId: nutrient.nutrientId || "N/A",
+          nutrientName: nutrient.nutrientName || "N/A",
+          unitName: nutrient.unitName || "N/A",
+          nutrientNumber: nutrient.nutrientNumber || "N/A",
+          foodNutrientId: nutrient.foodNutrientId || "N/A",
+          indentLevel: nutrient.indentLevel || "N/A",
+        })),
+      })
+    } catch {
+      // TODO: Make this an alert of some kind
+      console.log("Failed to add")
+    }
+  }
+
   return (
     <div className="flex w-full border border-secondary shadow-md rounded-md  mt-5 mb-5 p-5 justify-between sm:items-center flex-col sm:flex-row">
       <div className="food-info text-left mb-5 sm:mb-0">
@@ -31,7 +65,7 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
         </p>
       </div>
       <div className="buttons flex gap-2 justify-center items-center">
-        <Button>Add To Fridge</Button>
+        <Button onClick={() => ""}>Add To Fridge</Button>
 
         <Popover>
           <PopoverTrigger asChild>
