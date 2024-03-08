@@ -11,7 +11,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Table, TableBody, TableCaption, TableCell, TableRow } from "./ui/table"
-
+import { cn } from "@/lib/utils"
+import Logo from "./icons/Logo"
 function NavMenu() {
   const pathname = usePathname()
   const user = useUser()
@@ -44,7 +45,7 @@ function NavMenu() {
           <a href="/api/auth/login">Login</a>
         </Button>
       )}
-
+      <Logo fill="white" className="red" />
       <div
         className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto mt-10`}
       >
