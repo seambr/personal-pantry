@@ -37,15 +37,16 @@ function Search() {
 
   return (
     <main className="">
-      <form action="" className="w-4/12 m-auto mt-20">
+      <form action="" className="w-10/12 m-auto mt-20 sm:w-8/12 md:w-6/12">
         <Label htmlFor="food-item">Food Item</Label>
-        <div className="flex  gap-2">
+        <div className="flex gap-2 w-full">
           <Input
             type="text"
             placeholder="Enter Food Item..."
             id="food-item"
             ref={inputRef}
             onChange={handleInputChange}
+            className="w-full"
           />
           <Button onClick={handleSearch}>Search</Button>
         </div>

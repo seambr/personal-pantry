@@ -6,6 +6,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { UserProfile, useUser } from "@auth0/nextjs-auth0/client"
 import { Button } from "./ui/button"
 import {
+  HomeIcon,
+  MagnifyingGlassIcon,
+  BookmarkIcon,
+  ReaderIcon,
+  RocketIcon,
+} from "@radix-ui/react-icons"
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -20,11 +27,19 @@ function NavMenu() {
   console.log(user)
   const pathActive = (href: string) => href === pathname
   const navLinks = [
-    { href: "/", name: "Home" },
-    { href: "/search", name: "Food Search" },
-    { href: "/fridge", name: "Fridge" },
-    { href: "/menu", name: "Menu" },
-    { href: "/cook", name: "Cook" },
+    { href: "/", name: "Home", icon: <HomeIcon className="w-8 h-8" /> },
+    {
+      href: "/search",
+      name: "Food Search",
+      icon: <MagnifyingGlassIcon className="w-8 h-8" />,
+    },
+    {
+      href: "/fridge",
+      name: "Fridge",
+      icon: <BookmarkIcon className="w-8 h-8" />,
+    },
+    { href: "/menu", name: "Menu", icon: <ReaderIcon className="w-8 h-8" /> },
+    { href: "/cook", name: "Cook", icon: <RocketIcon className="w-8 h-8" /> },
   ]
 
   return (
@@ -32,7 +47,7 @@ function NavMenu() {
       {user.user ? (
         <Popover>
           <PopoverTrigger asChild>
-            <Avatar className="absolute top-10 right-32 w-10 h-10 rounded-full overflow-hidden cursor-pointer">
+            <Avatar className="absolute top-10 right-32 w-10 h-10 rounded-full overflow-hidden cursor-pointer hidden lg:block">
               <AvatarImage src={user.user.picture!} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
@@ -46,7 +61,10 @@ function NavMenu() {
           <a href="/api/auth/login">Login</a>
         </Button>
       )}
-      <Logo fill="white" className="w-32 absolute left-32 top-10" />
+      <Logo
+        fill="white"
+        className="w-32 absolute left-32 top-10 hidden lg:block"
+      />
       <div
         className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto mt-10`}
       >
@@ -59,7 +77,7 @@ function NavMenu() {
           >
             <Link href={e.href}>
               <span className="hidden md:inline">{e.name}</span>
-              <span className="inline md:hidden">TEST</span>
+              <span className="inline md:hidden">{e.icon}</span>
             </Link>
           </div>
         ))}
