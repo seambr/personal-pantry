@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="flex flex-col justify-center h-[800px] gap-5 p-20 relative items-center">
       <span className="text-3xl font-light relative text-center w-[600px]">
-        You are what you eat, so eat good.
+        You are what you eat, <span className="font-bold">so eat good</span>.
       </span>
 
       <Typewriter
