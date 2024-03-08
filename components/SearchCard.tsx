@@ -19,16 +19,18 @@ import {
 
 function SearchCard({ foodItem }: { foodItem: FoodItem }) {
   return (
-    <div className="flex w-full border border-secondary shadow-md rounded-md  mt-5 mb-5 p-5 justify-between items-center">
-      <div>
-        <h3 className="text-2xl text-primary font-bold ">
-          {foodItem?.brandName}
+    <div className="flex w-full border border-secondary shadow-md rounded-md  mt-5 mb-5 p-5 justify-between sm:items-center flex-col sm:flex-row">
+      <div className="food-info text-left mb-5 sm:mb-0">
+        <h3 className="text-xl text-primary font-bold sm:text-2xl">
+          {foodItem.brandName ? foodItem.brandName : foodItem.brandOwner}
         </h3>
-        <p>{foodItem.description}</p>
+        <p className="text-sm">{foodItem.description}</p>
         <p className="text-xs text-primary">{foodItem.foodCategory}</p>
-        <p className="text-xs text-primary">ID : {foodItem.fdcId}</p>
+        <p className="hidden text-xs text-primary sm:block">
+          ID : {foodItem.fdcId}
+        </p>
       </div>
-      <div className="flex gap-2">
+      <div className="buttons flex gap-2 justify-center items-center">
         <Button>Add To Fridge</Button>
 
         <Popover>
