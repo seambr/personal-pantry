@@ -3,7 +3,6 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import NavMenu from "@/components/NavMenu"
 const inter = Inter({ subsets: ["latin"] })
-import { UserProvider } from "@auth0/nextjs-auth0/client"
 import Head from "next/head"
 
 export const metadata: Metadata = {
@@ -37,14 +36,13 @@ export default function RootLayout({
         ></meta>
         <link rel="manifest" href="/manifest.json" key="manifest-tag"></link>
       </Head>
-      <UserProvider>
-        <body
-          className={`${inter.className} bg-primary-foreground flex flex-col`}
-        >
-          <NavMenu />
-          {children}
-        </body>
-      </UserProvider>
+
+      <body
+        className={`${inter.className} bg-primary-foreground flex flex-col`}
+      >
+        <NavMenu />
+        {children}
+      </body>
     </html>
   )
 }

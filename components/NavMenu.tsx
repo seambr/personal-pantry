@@ -3,7 +3,7 @@ import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
-import { UserProfile, useUser } from "@auth0/nextjs-auth0/client"
+
 import { Button } from "./ui/button"
 import {
   HomeIcon,
@@ -21,26 +21,27 @@ import { Table, TableBody, TableCaption, TableCell, TableRow } from "./ui/table"
 import { cn } from "@/lib/utils"
 import Logo from "./icons/Logo"
 
+const navLinks = [
+  { href: "/", name: "Home", icon: <HomeIcon className="w-8 h-8" /> },
+  {
+    href: "/search",
+    name: "Food Search",
+    icon: <MagnifyingGlassIcon className="w-8 h-8" />,
+  },
+  {
+    href: "/fridge",
+    name: "Fridge",
+    icon: <BookmarkIcon className="w-8 h-8" />,
+  },
+  { href: "/menu", name: "Menu", icon: <ReaderIcon className="w-8 h-8" /> },
+  { href: "/cook", name: "Cook", icon: <RocketIcon className="w-8 h-8" /> },
+]
+
 function NavMenu({ className = "" }) {
   const pathname = usePathname()
-  const user = useUser()
-  console.log(user)
+  const user = {}
+
   const pathActive = (href: string) => href === pathname
-  const navLinks = [
-    { href: "/", name: "Home", icon: <HomeIcon className="w-8 h-8" /> },
-    {
-      href: "/search",
-      name: "Food Search",
-      icon: <MagnifyingGlassIcon className="w-8 h-8" />,
-    },
-    {
-      href: "/fridge",
-      name: "Fridge",
-      icon: <BookmarkIcon className="w-8 h-8" />,
-    },
-    { href: "/menu", name: "Menu", icon: <ReaderIcon className="w-8 h-8" /> },
-    { href: "/cook", name: "Cook", icon: <RocketIcon className="w-8 h-8" /> },
-  ]
 
   return (
     <div
