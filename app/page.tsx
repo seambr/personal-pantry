@@ -25,7 +25,9 @@ export default function Home() {
         holdTime={500}
         className="text-md text-left opacity-50"
       />
-      <Button>Get Started</Button>
+      <Button>
+        <a href="/api/auth/login">Get Started</a>
+      </Button>
     </main>
   )
 }

@@ -45,14 +45,13 @@ function NavMenu({ className = "" }) {
   return (
     <div
       className={cn(
-        "absolute w-full bottom-5 sm:relative sm:bottom-0 flex items-center pt-10 pb-5 justify-center px-20 z-50",
+        "absolute w-full bottom-5 md:relative flex items-center pt-10 pb-5 justify-center px-20 z-50",
         className
       )}
     >
-      <Logo
-        fill="white"
-        className="w-32 hidden lg:block absolute left-0 ml-20"
-      />
+      <Link href={"/"} className="fixed top-5 ml-5 left-0 lg:ml-20">
+        <Logo fill="white" className="w-32" />
+      </Link>
 
       <div
         className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto`}
@@ -74,7 +73,7 @@ function NavMenu({ className = "" }) {
       {user.user ? (
         <Popover>
           <PopoverTrigger asChild>
-            <Avatar className="w-10 h-10 rounded-full overflow-hidden cursor-pointer hidden lg:block absolute right-0 mr-20">
+            <Avatar className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5">
               <AvatarImage src={user.user.picture!} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>

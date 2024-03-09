@@ -21,31 +21,37 @@ import {
 function SearchCard({ foodItem }: { foodItem: FoodItem }) {
   function addToFridge(item: FoodItem) {
     // FIXME: Not complete
+    const body = {
+      edited: false,
+      fdcId: item.fdcId,
+      description: item.description,
+      dataType: item.dataType,
+      gtinUpc: item.gtinUpc,
+      brandOwner: item.brandOwner,
+      brandName: item.brandName,
+      ingredients: item.ingredients,
+      marketCountry: item.marketCountry,
+      foodCategory: item.foodCategory,
+      packageWeight: item.packageWeight,
+      servingSizeUnit: item.servingSizeUnit,
+      servingSize: item.servingSize,
+      householdServingFullText: item.householdServingFullText,
+      shortDescription: item.shortDescription,
+      foodNutrients: item.foodNutrients.map((nutrient) => ({
+        nutrientId: nutrient.nutrientId || "N/A",
+        nutrientName: nutrient.nutrientName || "N/A",
+        unitName: nutrient.unitName || "N/A",
+        nutrientNumber: nutrient.nutrientNumber || "N/A",
+        foodNutrientId: nutrient.foodNutrientId || "N/A",
+        indentLevel: nutrient.indentLevel || "N/A",
+      })),
+    }
+
+    console.log(body)
+
+    return
     try {
-      axios.post("http://localhost:3000/api/search", {
-        fdcId: item.fdcId,
-        description: item.description,
-        dataType: item.dataType,
-        gtinUpc: item.gtinUpc,
-        brandOwner: item.brandOwner,
-        brandName: item.brandName,
-        ingredients: item.ingredients,
-        marketCountry: item.marketCountry,
-        foodCategory: item.foodCategory,
-        packageWeight: item.packageWeight,
-        servingSizeUnit: item.servingSizeUnit,
-        servingSize: item.servingSize,
-        householdServingFullText: item.householdServingFullText,
-        shortDescription: item.shortDescription,
-        foodNutrients: item.foodNutrients.map((nutrient) => ({
-          nutrientId: nutrient.nutrientId || "N/A",
-          nutrientName: nutrient.nutrientName || "N/A",
-          unitName: nutrient.unitName || "N/A",
-          nutrientNumber: nutrient.nutrientNumber || "N/A",
-          foodNutrientId: nutrient.foodNutrientId || "N/A",
-          indentLevel: nutrient.indentLevel || "N/A",
-        })),
-      })
+      axios.post("http://localhost:3000/api/search")
     } catch {
       // TODO: Make this an alert of some kind
       console.log("Failed to add")
@@ -65,7 +71,7 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
         </p>
       </div>
       <div className="buttons flex gap-2 justify-center items-center">
-        <Button onClick={() => ""}>Add To Fridge</Button>
+        <Button onClick={() => addToFridge(foodItem)}>Add To Fridge</Button>
 
         <Popover>
           <PopoverTrigger asChild>

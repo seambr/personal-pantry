@@ -13,15 +13,17 @@ function FridgeResults({}) {
   }, [])
 
   return (
-    <ScrollArea className="h-[650px] w-4/6 rounded-md border p-4 gap-2 m-auto mt-5">
-      <div className="fridge-grid grid grid-cols-3 gap-5">
+    <ScrollArea className="h-[calc(100vh-15em)] w-6/6 rounded-md p-4 gap-2">
+      <div className="fridge-grid flex flex-col sm:grid sm:grid-cols-2 gap-1 gap-y-5 gap-x-5">
         {results?.foods.map((r: FoodItem, idx) => (
           <div
             key={idx}
-            className="fridge-item border border-secondary shadow-md rounded-md  mt-5 mb-5 p-5 justify-between items-center"
+            className="fridge-item border border-secondary shadow-md rounded-md p-5 justify-between items-center h-28 sm:h-32"
           >
-            <h3 className="font-bold">{r.brandName}</h3>
-            <p className="text-sm">{r.description}</p>
+            <h3 className="font-bold">
+              {r.brandName || r.brandOwner || "N/A"}
+            </h3>
+            <p className="text-xs sm:text-sm">{r.description}</p>
           </div>
         ))}
       </div>

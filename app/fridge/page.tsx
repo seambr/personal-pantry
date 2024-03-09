@@ -4,7 +4,8 @@ import React from "react"
 
 function page() {
   return (
-    <main className="flex-grow">
+    <main className="flex-grow flex justify-center items-center flex-col">
+      <h2>Your Fridge</h2>
       <FridgeResults />
     </main>
   )
