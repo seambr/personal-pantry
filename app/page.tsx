@@ -10,6 +10,8 @@ const detailArray = [
   "Keep track of whats in your food.",
   "Live healthier.",
   "Scan your receipts.",
+  "View your progress.",
+  "Share your favorite recipes.",
 ]
 
 export default function Home() {

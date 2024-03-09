@@ -1,0 +1,16 @@
+{
+  "name": "Macro Fridge App",
+  "short_name": "Macro Fridge App",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Your app description here.",
+  "icons": [
+    {
+      "src": "images/egg.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "manifest_version": 2
+}
