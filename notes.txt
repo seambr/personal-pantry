@@ -1,0 +1,38 @@
+CREATE TABLE Items (
+    ItemID INT AUTO_INCREMENT PRIMARY KEY,
+    Edited BOOLEAN,
+    FdcId VARCHAR(255),
+    Description TEXT,
+    DataType VARCHAR(255),
+    GtinUpc VARCHAR(255),
+    BrandOwner VARCHAR(255),
+    BrandName VARCHAR(255),
+    Ingredients TEXT,
+    MarketCountry VARCHAR(255),
+    FoodCategory VARCHAR(255),
+    PackageWeight VARCHAR(255),
+    ServingSizeUnit VARCHAR(255),
+    ServingSize VARCHAR(255),
+    HouseholdServingFullText TEXT,
+    ShortDescription TEXT
+);
+
+CREATE TABLE nutrient (
+    id int4,
+    name VARCHAR,
+    unit_name VARCHAR,
+    nutrient_nbr int4
+    rank int4
+);
+
+CREATE TABLE ItemNutrients (
+    ItemNutrientID INT AUTO_INCREMENT PRIMARY KEY,
+    ItemID INT,
+    NutrientID INT,
+    FoodNutrientId VARCHAR(255),
+    IndentLevel VARCHAR(255),
+    FOREIGN KEY (ItemID) REFERENCES Items(ItemID),
+    FOREIGN KEY (NutrientID) REFERENCES Nutrients(NutrientID)
+);
+
+starting sql structure
