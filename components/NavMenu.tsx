@@ -73,7 +73,7 @@ function NavMenu({ className = "" }) {
       {user.user ? (
         <Popover>
           <PopoverTrigger asChild>
-            <Avatar className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5">
+            <Avatar className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5 lg:mr-20">
               <AvatarImage src={user.user.picture!} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>

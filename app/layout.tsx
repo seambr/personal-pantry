@@ -4,7 +4,7 @@ import "./globals.css"
 import NavMenu from "@/components/NavMenu"
 const inter = Inter({ subsets: ["latin"] })
 import { UserProvider } from "@auth0/nextjs-auth0/client"
-import { Html, Head } from "next/document"
+import Head from "next/head"
 
 export const metadata: Metadata = {
   title: "Macro Fridge",
@@ -19,18 +19,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
         <meta
+          key="vp-tag"
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
-        <meta name="apple-mobile-web-app-capable" content="yes"></meta>
         <meta
+          key="apple-tag"
+          name="apple-mobile-web-app-capable"
+          content="yes"
+        ></meta>
+        <meta
+          key="min-ui-tag"
           name="viewport"
           content="width=device-width, initial-scale=1, minimal-ui"
         ></meta>
-        <link rel="manifest" href="/manifest.json"></link>
-      </head>
+        <link rel="manifest" href="/manifest.json" key="manifest-tag"></link>
+      </Head>
       <UserProvider>
         <body
           className={`${inter.className} bg-primary-foreground flex flex-col`}
