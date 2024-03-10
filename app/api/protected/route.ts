@@ -5,5 +5,6 @@ export const GET = async function myApiRoute(req) {
   const supabase = createClient()
   let { data: test, error1 } = await supabase.from("test").select("*")
   let { data: user, error2 } = await supabase.auth.getUser()
+  const {} = await supabase.auth.signOut()
   return NextResponse.json({ protected: test, user: user })
 }
