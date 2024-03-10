@@ -18,9 +18,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const supabase = createClient()
-  const { data, error } = await supabase.auth.getUser()
-
   return (
     <html lang="en">
       <Head>
@@ -45,7 +42,7 @@ export default async function RootLayout({
       <body
         className={`${inter.className} bg-primary-foreground flex flex-col`}
       >
-        <NavMenu data={data} />
+        <NavMenu />
         {children}
       </body>
     </html>

@@ -8,16 +8,11 @@ async function Fridge() {
   // TODO: GET FRIDGE RESULTS DIRECTLY HERE
   const supabase = createClient()
   const { data, error } = await supabase.auth.getUser()
-  if (error || !data?.user) {
-    redirect("/")
-  }
 
   return (
     <main className="flex-grow flex justify-center items-center flex-col">
-      <h2 className="text-xl border-b p-2 w-44 text-center">
-        {data.user?.aud} Fridge
-      </h2>
-      <FridgeResults data={data} />
+      <h2 className="text-xl border-b p-2 w-44 text-center">Fridge</h2>
+      {!error && <FridgeResults data={data} />}
     </main>
   )
 }

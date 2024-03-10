@@ -1,10 +1,7 @@
-"use client"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import Link from "next/link"
-import { redirect, usePathname } from "next/navigation"
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
-import { supabase } from "@/utils/supabase/client"
 import { Button } from "./ui/button"
+
 import {
   HomeIcon,
   MagnifyingGlassIcon,
@@ -20,8 +17,8 @@ import {
 import { Table, TableBody, TableCaption, TableCell, TableRow } from "./ui/table"
 import { cn } from "@/lib/utils"
 import Logo from "./icons/Logo"
-
-import { useAuth } from "@/context/AuthProvider"
+import Image from "next/image"
+import { createClient } from "@/utils/supabase/server"
 
 const navLinks = [
   { href: "/", name: "Home", icon: <HomeIcon className="w-8 h-8" /> },
@@ -39,10 +36,12 @@ const navLinks = [
   { href: "/cook", name: "Cook", icon: <RocketIcon className="w-8 h-8" /> },
 ]
 
-function NavMenu({ className = "", data }) {
-  const pathname = usePathname()
-
+async function NavMenu({ className = "" }) {
+  const pathname = "/"
   const pathActive = (href: string) => href === pathname
+
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.getUser()
 
   const user = data.user
 
@@ -73,17 +72,16 @@ function NavMenu({ className = "", data }) {
           </div>
         ))}
       </div>
-      {user?.aud === "authenticated" ? (
+      {user ? (
         <Popover>
           <PopoverTrigger asChild>
-            <Avatar className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5 lg:mr-20">
-              <AvatarImage
-                src={user.image_link || "/images/default_icon.jpg"}
-              />
-              <AvatarFallback className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5 lg:mr-20">
-                HI
-              </AvatarFallback>
-            </Avatar>
+            <Image
+              className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5 lg:mr-20"
+              src={user.image_link || "/images/default_icon.jpg"}
+              alt="user image"
+              width={100}
+              height={100}
+            />
           </PopoverTrigger>
           <PopoverContent>
             <ProfileTable user={user} />
@@ -91,7 +89,7 @@ function NavMenu({ className = "", data }) {
         </Popover>
       ) : (
         <Button className="hidden lg:block cursor-pointer absolute right-0 mr-20">
-          <a href="/login">Login</a>
+          <Link href="/login">Login</Link>
         </Button>
       )}
     </div>
@@ -109,7 +107,7 @@ function ProfileTable({ user }: { user: any }) {
       <TableBody>
         <TableRow>
           <TableCell className="font-medium text-center cursor-pointer rounded-md">
-            <a href="/logout">Logout</a>
+            <Link href="/logout">Logout</Link>
           </TableCell>
         </TableRow>
       </TableBody>
