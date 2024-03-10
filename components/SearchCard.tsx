@@ -17,14 +17,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-function SearchCard({
-  foodItem,
-  showAlert,
-}: {
-  foodItem: FoodItem
-  showAlert: any
-}) {
+import { useAlert } from "@/components/TopAlert"
+function SearchCard({ foodItem }: { foodItem: FoodItem }) {
+  const { showAlert } = useAlert()
   async function addToFridge(item: FoodItem) {
     // FIXME: Not complete
     const body = {
