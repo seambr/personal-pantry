@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import Link from "next/link"
 import { Button } from "./ui/button"
@@ -14,11 +15,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+
 import { Table, TableBody, TableCaption, TableCell, TableRow } from "./ui/table"
 import { cn } from "@/lib/utils"
 import Logo from "./icons/Logo"
 import Image from "next/image"
 import { createClient } from "@/utils/supabase/server"
+import { usePathname } from "next/navigation"
+import { User } from "@supabase/supabase-js"
 
 const navLinks = [
   { href: "/", name: "Home", icon: <HomeIcon className="w-8 h-8" /> },
@@ -36,14 +40,10 @@ const navLinks = [
   { href: "/cook", name: "Cook", icon: <RocketIcon className="w-8 h-8" /> },
 ]
 
-async function NavMenu({ className = "" }) {
-  const pathname = "/"
+function NavMenu({ className = "", user }: { className: string; user: User }) {
+  const pathname = usePathname()
+
   const pathActive = (href: string) => href === pathname
-
-  const supabase = createClient()
-  const { data, error } = await supabase.auth.getUser()
-
-  const user = data.user
 
   return (
     <div

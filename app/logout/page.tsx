@@ -21,6 +21,5 @@ export default function LogoutPage() {
     }, 50)
   }, [])
 
-  router.refresh()
   return <>Logging Out</>
 }

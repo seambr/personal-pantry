@@ -1,23 +1,27 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { FoodItem, SearchResponse } from "@/interfaces/FoodInterfaces"
+import { FoodItem } from "@/interfaces/FoodInterfaces"
 import { useAuth } from "@/context/AuthProvider"
-function FridgeResults({ data }) {
-  const [results, setResults] = useState<SearchResponse>()
+import axios from "axios"
+function FridgeResults({ user }) {
+  const [results, setResults] = useState<FoodItem[] | null>(null)
 
   useEffect(() => {
-    fetch("api_return_test_data/search_res.json")
-      .then((r) => r.json())
-      .then((data) => setResults(data))
-  }, [])
+    async function getFridge() {
+      const data = await axios.get("/api/protected/pantry")
+      setResults(data?.data)
+    }
 
+    getFridge()
+  }, [])
+  console.log(results)
   return (
     <>
-      {data.user.email}
+      {user.email}
       <ScrollArea className="h-[calc(100vh-15em)] w-6/6 rounded-md p-4 gap-2">
         <div className="fridge-grid flex flex-col sm:grid sm:grid-cols-2 gap-1 gap-y-5 gap-x-5">
-          {results?.foods.map((r: FoodItem, idx) => (
+          {results?.map((r: FoodItem, idx) => (
             <div
               key={idx}
               className="fridge-item border border-secondary shadow-md rounded-md p-5 justify-between items-center h-28 sm:h-32"
