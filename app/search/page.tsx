@@ -14,8 +14,9 @@ function Search() {
   const [results, setResults] = useState<SearchResponse>()
 
   const handleInputChange = () => {
-    setInput(inputRef.current.value)
+    setInput(inputRef.current!.value)
   }
+
   const handleSearch = (e: MouseEvent) => {
     e.preventDefault()
 

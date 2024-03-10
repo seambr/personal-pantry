@@ -1,9 +1,9 @@
 "use client"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { redirect, usePathname } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
-
+import { supabase } from "@/utils/supabase/client"
 import { Button } from "./ui/button"
 import {
   HomeIcon,
@@ -21,6 +21,8 @@ import { Table, TableBody, TableCaption, TableCell, TableRow } from "./ui/table"
 import { cn } from "@/lib/utils"
 import Logo from "./icons/Logo"
 
+import { useAuth } from "@/context/AuthProvider"
+
 const navLinks = [
   { href: "/", name: "Home", icon: <HomeIcon className="w-8 h-8" /> },
   {
@@ -37,11 +39,12 @@ const navLinks = [
   { href: "/cook", name: "Cook", icon: <RocketIcon className="w-8 h-8" /> },
 ]
 
-function NavMenu({ className = "" }) {
+function NavMenu({ className = "", data }) {
   const pathname = usePathname()
-  const user = {}
 
   const pathActive = (href: string) => href === pathname
+
+  const user = data.user
 
   return (
     <div
@@ -53,7 +56,6 @@ function NavMenu({ className = "" }) {
       <Link href={"/"} className="fixed top-5 ml-5 left-0 lg:ml-20">
         <Logo fill="white" className="w-32" />
       </Link>
-
       <div
         className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto`}
       >
@@ -71,28 +73,32 @@ function NavMenu({ className = "" }) {
           </div>
         ))}
       </div>
-      {user.user ? (
+      {user?.aud === "authenticated" ? (
         <Popover>
           <PopoverTrigger asChild>
             <Avatar className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5 lg:mr-20">
-              <AvatarImage src={user.user.picture!} />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage
+                src={user.image_link || "/images/default_icon.jpg"}
+              />
+              <AvatarFallback className="w-10 h-10 rounded-full overflow-hidden cursor-pointer lg:block fixed top-5 right-0 mr-5 lg:mr-20">
+                HI
+              </AvatarFallback>
             </Avatar>
           </PopoverTrigger>
           <PopoverContent>
-            <ProfileTable user={user.user} />
+            <ProfileTable user={user} />
           </PopoverContent>
         </Popover>
       ) : (
         <Button className="hidden lg:block cursor-pointer absolute right-0 mr-20">
-          <a href="/api/auth/login">Login</a>
+          <a href="/login">Login</a>
         </Button>
       )}
     </div>
   )
 }
 
-function ProfileTable({ user }: { user: UserProfile }) {
+function ProfileTable({ user }: { user: any }) {
   return (
     <Table>
       <TableCaption>
@@ -103,7 +109,7 @@ function ProfileTable({ user }: { user: UserProfile }) {
       <TableBody>
         <TableRow>
           <TableCell className="font-medium text-center cursor-pointer rounded-md">
-            <a href="/api/auth/logout">Logout</a>
+            <a href="/logout">Logout</a>
           </TableCell>
         </TableRow>
       </TableBody>

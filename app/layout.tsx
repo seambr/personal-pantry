@@ -4,18 +4,26 @@ import "./globals.css"
 import NavMenu from "@/components/NavMenu"
 const inter = Inter({ subsets: ["latin"] })
 import Head from "next/head"
-
+import { AuthProvider } from "@/context/AuthProvider"
+import { createClient } from "@/utils/supabase/server"
+import { redirect } from "next/dist/server/api-utils"
 export const metadata: Metadata = {
   title: "Macro Fridge",
   description: "Plan you meals with all the nutritional info you need",
   keywords: "macro health diet meal recipe meal meal-prep prep",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.getUser()
+  if (error || !data?.user) {
+    redirect("/")
+  }
+
   return (
     <html lang="en">
       <Head>
@@ -40,7 +48,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} bg-primary-foreground flex flex-col`}
       >
-        <NavMenu />
+        <NavMenu data={data} />
         {children}
       </body>
     </html>
