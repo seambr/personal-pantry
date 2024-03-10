@@ -5,7 +5,6 @@ import { FoodItem, SearchResponse } from "@/interfaces/FoodInterfaces"
 import { useAuth } from "@/context/AuthProvider"
 function FridgeResults({ data }) {
   const [results, setResults] = useState<SearchResponse>()
-  const { session, user, signOut, loading } = useAuth()
 
   useEffect(() => {
     fetch("api_return_test_data/search_res.json")
