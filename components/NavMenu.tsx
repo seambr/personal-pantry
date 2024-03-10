@@ -56,7 +56,7 @@ function NavMenu({ className = "", user }: { className: string; user: User }) {
         <Logo fill="white" className="w-32" />
       </Link>
       <div
-        className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto`}
+        className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto bg-primary-foreground`}
       >
         {navLinks.map((e, idx) => (
           <div

@@ -18,8 +18,14 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-function SearchCard({ foodItem }: { foodItem: FoodItem }) {
-  function addToFridge(item: FoodItem) {
+function SearchCard({
+  foodItem,
+  showAlert,
+}: {
+  foodItem: FoodItem
+  showAlert: any
+}) {
+  async function addToFridge(item: FoodItem) {
     // FIXME: Not complete
     const body = {
       data: {
@@ -49,7 +55,15 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
     }
 
     try {
-      axios.post("http://localhost:3000/api/protected/pantry/item", body)
+      const res = await axios.post(
+        "http://localhost:3000/api/protected/pantry/item",
+        body
+      )
+      if (res.status === 200) {
+        showAlert({ show: true, message: "Added item to fridge." })
+      } else {
+        showAlert({ show: true, message: "Failed to add item to fridge." })
+      }
     } catch {
       // TODO: Make this an alert of some kind
       console.log("Failed to add")

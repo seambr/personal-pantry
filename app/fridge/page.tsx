@@ -13,9 +13,15 @@ async function Fridge() {
   } = await supabase.auth.getUser()
 
   return (
-    <main className="flex-grow flex justify-center items-center flex-col">
+    <main className="flex-grow flex justify-center items-center flex-col xl:justify-start">
       <h2 className="text-xl border-b p-2 w-44 text-center">Fridge</h2>
-      {!error && <FridgeResults user={user} />}
+      {user ? (
+        <FridgeResults user={user} />
+      ) : (
+        <h3 className="opacity-50">
+          You must be logged in to view your fridge.
+        </h3>
+      )}
     </main>
   )
 }

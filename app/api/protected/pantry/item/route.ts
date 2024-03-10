@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       .from("FoodItems")
       .insert([body?.data])
       .select()
-    console.log(error)
+
     return new NextResponse(JSON.stringify({ success: "Added Item" }), {
       status: 200,
     })
