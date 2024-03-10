@@ -15,7 +15,7 @@ function FridgeResults({ user }) {
 
     getFridge()
   }, [])
-  console.log(results)
+
   return (
     <>
       {user.email}
