@@ -5,6 +5,7 @@ import { FoodItemSQL } from "@/interfaces/FoodInterfaces"
 import { useAuth } from "@/context/AuthProvider"
 import axios from "axios"
 import FoodTable from "./FoodTable"
+import Link from "next/link"
 function FridgeResults({ user }) {
   // TODO: GET FRIDGE RESULTS FROM SERVER PARENT
   const [results, setResults] = useState<FoodItemSQL[] | null>(null)
@@ -37,23 +38,26 @@ function FridgeCard({ foodItem }: { foodItem: FoodItemSQL }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="fridge-item flex border-b border-secondary shadow-md  p-5 justify-between items-center h-28 sm:h-32">
-      <div className="info-container">
-        <h3 className="font-bold">
-          {foodItem.brandName || foodItem.brandOwner || "N/A"}
-        </h3>
-        <p className="text-xs sm:text-sm">{foodItem.description}</p>
-      </div>
+    <Link href={`/fridge/item/${foodItem.id}`}>
+      <div className="fridge-item hover:bg-secondary flex border-b border-secondary shadow-md  p-5 justify-between items-center h-28 sm:h-32">
+        <div className="info-container">
+          <h3 className="font-bold">
+            {foodItem.brandName || foodItem.brandOwner || "N/A"}
+          </h3>
+          <p className="text-xs sm:text-sm">{foodItem.description}</p>
+        </div>
 
-      <div className="shorthand-nutrition text-right">
-        <p>
-          {foodItem.servingSize} {foodItem.servingSizeUnit}
-        </p>
-        <p>{foodItem.Calories} Calories</p>
-      </div>
+        <div className="shorthand-nutrition text-right">
+          <p>
+            {foodItem.servingSize} {foodItem.servingSizeUnit}
+          </p>
+          <p>{foodItem.Calories} Calories</p>
+          <p className="text-xs">{foodItem.id}</p>
+        </div>
 
-      {/* <FoodTable foodItem={foodItem} /> */}
-    </div>
+        {/* <FoodTable foodItem={foodItem} /> */}
+      </div>
+    </Link>
   )
 }
 
