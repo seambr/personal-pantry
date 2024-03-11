@@ -24,12 +24,10 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json()
 
-    console.log(body?.data)
     const { data, error } = await supabase
       .from("FoodItems")
       .insert([body?.data])
       .select()
-
     return new NextResponse(JSON.stringify({ success: "Added Item" }), {
       status: 200,
     })
@@ -39,4 +37,18 @@ export async function POST(req: NextRequest) {
       status: 500,
     })
   }
+}
+
+export async function GET(req: NextRequest) {
+  // TODO: ADD one item to pantry
+
+  try {
+  } catch (error) {}
+}
+
+export async function DELETE(req: NextRequest) {
+  // TODO: ADD one item to pantry
+
+  try {
+  } catch (error) {}
 }

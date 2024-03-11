@@ -80,7 +80,7 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
     }
 
     const nutrients = buildNutrientSkeleton(nutrientMap)
-    console.log(nutrients)
+
     foodItem?.foodNutrients?.forEach((_n) => {
       const nutrientTuple = nutrientMap[_n.nutrientNumber]
 
@@ -88,10 +88,7 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
         const nutrientName = nutrientTuple[0]
         console.log(nutrientName)
         if (Object.hasOwn(nutrients, nutrientName)) {
-          nutrients[nutrientName] = {
-            value: _n.value,
-            unitName: _n.unitName,
-          }
+          nutrients[nutrientName] = _n.value
         }
       }
     })
@@ -117,6 +114,7 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
       },
     }
 
+    console.log(body.data)
     try {
       const res = await axios.post(
         "http://localhost:3000/api/protected/pantry/item",
