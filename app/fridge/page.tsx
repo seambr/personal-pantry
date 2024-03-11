@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react"
 import { AuthProvider } from "@/context/AuthProvider"
 import { redirect } from "next/dist/server/api-utils"
 async function Fridge() {
-  // TODO: GET FRIDGE RESULTS DIRECTLY HERE
+  // TODO: GET FRIDGE RESULTS DIRECTLY HERE AND PASS DOWN
   const supabase = createClient()
   const {
     data: { user },
