@@ -1,19 +1,41 @@
-import FoodTable from "@/components/FoodTable"
-import NutritionLabel from "@/components/NutritionLabel"
+"use client"
+import NutritionTableEditWrapper from "@/components/NutritionTableEditWrapper"
+import { FoodItemSQL } from "@/interfaces/FoodInterfaces"
 import { createClient } from "@/utils/supabase/server"
-import React from "react"
+import { usePathname } from "next/navigation"
+import React, { useEffect, useState } from "react"
+import axios from "axios"
 
-async function ItemPage(props) {
-  const id = props.params.id
+function ItemPage() {
+  const path = usePathname()
+  const id = path.split("/").slice(-1)[0]
+  const [foodItem, setFoodItem] = useState<FoodItemSQL | null>(null)
 
-  const supabase = createClient()
+  useEffect(() => {
+    async function fetchItemFromDB() {
+      const data = await axios.get("/api/protected/pantry/item", {
+        params: { id: id },
+      })
 
-  const { data: FoodItems, error } = await supabase
-    .from("FoodItems")
-    .select("*")
-    .eq("id", id)
+      setFoodItem(data.data[0])
+    }
 
-  return <FoodTable foodItem={FoodItems[0]} isSQL />
+    fetchItemFromDB()
+  }, [])
+
+  return (
+    <main className="flex-grow flex items-center flex-col xl:justify-start mt-28 md:mt-0 overflow-y-scroll mb-40">
+      {foodItem && (
+        <h1 className="textx-xl border-b mb-5">
+          {foodItem.brandName || foodItem.brandOwner} {foodItem.description}
+        </h1>
+      )}
+      <NutritionTableEditWrapper
+        foodItem={foodItem}
+        setFoodItem={setFoodItem}
+      />
+    </main>
+  )
 }
 
 export default ItemPage
