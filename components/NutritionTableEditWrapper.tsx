@@ -2,11 +2,18 @@
 import NutritionTable from "@/components/NutritionTable"
 import { FoodItemSQL } from "@/interfaces/FoodInterfaces"
 import { Pencil2Icon } from "@radix-ui/react-icons"
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import React, { useRef, useState, forwardRef } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import axios from "axios"
+import { cn } from "@/lib/utils"
 function NutritionTableEditWrapper({
   foodItem,
   setFoodItem,
@@ -232,21 +239,42 @@ function NutritionTableEditWrapper({
   )
 }
 
-const UnitInput = forwardRef(({ unit, id, defaultValue = "" }, ref) => {
-  return (
-    <div className="unit-wrapper relative rounded-md overflow-hidden">
-      <Input
-        id={id}
-        type="text"
-        placeholder="value"
-        defaultValue={defaultValue}
-        ref={ref}
-      />
-      <div className="absolute right-0 w-12 h-full bg-secondary top-0 flex justify-center items-center border-l text-sm">
-        {unit}
+const UnitInput = forwardRef(
+  ({ unit, id, defaultValue = "", unitSelect, className = "" }, ref) => {
+    return (
+      <div className="unit-wrapper relative rounded-md overflow-hidden">
+        <Input
+          id={id}
+          type="text"
+          placeholder="value"
+          defaultValue={defaultValue}
+          ref={ref}
+        />
+
+        {!unitSelect ? (
+          <div className="absolute right-0 w-12 h-full bg-secondary top-0 flex justify-center items-center border-l text-sm">
+            {unit}
+          </div>
+        ) : (
+          <Select>
+            <SelectTrigger
+              className={cn(
+                "w-[50px] absolute top-0 right-0 rounded-none",
+                className
+              )}
+            >
+              <SelectValue placeholder="g" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="g">g</SelectItem>
+              <SelectItem value="percent-of-serving-size">%</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
       </div>
-    </div>
-  )
-})
+    )
+  }
+)
 UnitInput.displayName = "UnitInput"
 export default NutritionTableEditWrapper
+export { UnitInput }

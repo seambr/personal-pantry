@@ -1,14 +1,21 @@
-import FridgeResults from "@/components/FridgeResults"
 import { createClient } from "@/utils/supabase/server"
-import axios from "axios"
+
 import React, { useEffect, useState } from "react"
-import { AuthProvider } from "@/context/AuthProvider"
-import { redirect } from "next/dist/server/api-utils"
+
+import MenuCrafter from "@/components/MenuCrafter"
 
 async function CookPage() {
+  const supabase = createClient()
+
+  let { data: foodItems, error } = await supabase
+    .from("FoodItems")
+    .select(
+      "id,edited,description,ingredients,createdAt,brandOwner,brandName,foodCategory,servingSize,servingSizeUnit,householdServingFullText,Calories"
+    )
+
   return (
     <main className="flex-grow flex justify-center items-center flex-col xl:justify-start">
-      Cook Page
+      <MenuCrafter foodItems={foodItems}></MenuCrafter>
     </main>
   )
 }
