@@ -25,11 +25,6 @@ function ItemPage() {
 
   return (
     <main className="flex-grow flex items-center flex-col xl:justify-start mt-28 md:mt-0 overflow-y-scroll mb-40">
-      {foodItem && (
-        <h1 className="textx-xl border-b mb-5">
-          {foodItem.brandName || foodItem.brandOwner} {foodItem.description}
-        </h1>
-      )}
       <NutritionTableEditWrapper
         foodItem={foodItem}
         setFoodItem={setFoodItem}

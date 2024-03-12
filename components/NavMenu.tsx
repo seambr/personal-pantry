@@ -59,17 +59,16 @@ function NavMenu({ className = "", user }: { className: string; user: User }) {
         className={`flex gap-2 shadow-md p-1 rounded-md border border-secondary w-fit m-auto bg-primary-foreground`}
       >
         {navLinks.map((e, idx) => (
-          <div
-            className={`rounded-md p-1 px-3 hover:bg-secondary cursor-pointer ${
-              pathActive(e.href) ? "bg-secondary" : ""
-            }`}
-            key={idx}
-          >
-            <Link href={e.href}>
+          <Link href={e.href} key={idx}>
+            <div
+              className={`rounded-md p-1 px-3 hover:bg-secondary cursor-pointer ${
+                pathActive(e.href) ? "bg-secondary" : ""
+              }`}
+            >
               <span className="hidden sm:inline">{e.name}</span>
               <span className="inline sm:hidden">{e.icon}</span>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
       {user ? (
@@ -88,9 +87,12 @@ function NavMenu({ className = "", user }: { className: string; user: User }) {
           </PopoverContent>
         </Popover>
       ) : (
-        <Button className="hidden lg:block cursor-pointer absolute right-0 mr-20">
-          <Link href="/login">Login</Link>
-        </Button>
+        <Link
+          href="/login"
+          className="hidden lg:block cursor-pointer absolute right-0 mr-20"
+        >
+          <Button className="">Login</Button>
+        </Link>
       )}
     </div>
   )
