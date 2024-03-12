@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 // import pool from "../../../db"
 import { createClient } from "@/utils/supabase/server"
+import { FoodItemSQL } from "@/interfaces/FoodInterfaces"
+import { calcLength } from "framer-motion"
 
 export async function POST(req: NextRequest) {
   // TODO: ADD one item to pantry
@@ -14,12 +16,14 @@ export async function POST(req: NextRequest) {
       .from("FoodItems")
       .insert([body?.data])
       .select()
+    if (error) {
+      throw new Error("Failed to add")
+    }
     return new NextResponse(JSON.stringify({ success: "Added Item" }), {
       status: 200,
     })
   } catch (error) {
-    console.error(error)
-    return new NextResponse(JSON.stringify({ error: "Failed to fetch item" }), {
+    return new NextResponse(JSON.stringify({ error: "Failed to add Item" }), {
       status: 500,
     })
   }
@@ -42,6 +46,36 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(FoodItems)
   } catch (error) {
     return NextResponse.json(error)
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  // TODO: ADD one item to pantry
+
+  try {
+    const supabase = createClient()
+
+    const body = await req.json()
+
+    const foodItem: FoodItemSQL = body.data.foodItem
+
+    const { data, error } = await supabase
+      .from("FoodItems")
+      .update(foodItem)
+      .eq("id", foodItem.id)
+
+    console.log(error)
+    if (error) {
+      throw new Error("Failed to add")
+    }
+
+    return new NextResponse(JSON.stringify({ success: "Added Item" }), {
+      status: 200,
+    })
+  } catch (error) {
+    return new NextResponse(JSON.stringify({ error: "Failed to add Item" }), {
+      status: 500,
+    })
   }
 }
 

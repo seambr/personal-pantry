@@ -120,14 +120,13 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
         "http://localhost:3000/api/protected/pantry/item",
         body
       )
+
       if (res.status === 200) {
         showAlert({ show: true, message: "Added item to fridge." })
-      } else {
-        showAlert({ show: true, message: "Failed to add item to fridge." })
       }
     } catch {
       // TODO: Make this an alert of some kind
-      console.log("Failed to add")
+      showAlert({ show: true, message: "Failed to add item to fridge." })
     }
   }
 

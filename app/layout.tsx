@@ -23,25 +23,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <Head>
-        <meta
-          key="vp-tag"
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
-        <meta
-          key="apple-tag"
-          name="apple-mobile-web-app-capable"
-          content="yes"
-        ></meta>
-        <meta
-          key="min-ui-tag"
-          name="viewport"
-          content="width=device-width, initial-scale=1, minimal-ui"
-        ></meta>
-        <link rel="manifest" href="/manifest.json" key="manifest-tag"></link>
-      </Head>
-
       <body
         className={`${inter.className} bg-primary-foreground flex flex-col`}
       >

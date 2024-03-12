@@ -100,20 +100,17 @@ function NavMenu({ className = "", user }: { className: string; user: User }) {
 
 function ProfileTable({ user }: { user: any }) {
   return (
-    <Table>
-      <TableCaption>
+    <div className="w-full h-full flex-col flex justify-center items-center">
+      <Link href={"/logout"}>
+        <Button variant="destructive">Logout</Button>
+      </Link>
+      <p className="opacity-50 text-xs">
+        {" "}
         {user.name}
         <br />
         {user.email}
-      </TableCaption>
-      <TableBody>
-        <TableRow>
-          <TableCell className="font-medium text-center cursor-pointer rounded-md">
-            <Link href="/logout">Logout</Link>
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+      </p>
+    </div>
   )
 }
 
