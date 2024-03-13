@@ -240,7 +240,18 @@ function NutritionTableEditWrapper({
 }
 
 const UnitInput = forwardRef(
-  ({ unit, id, defaultValue = "", unitSelect, className = "" }, ref) => {
+  (
+    {
+      unit,
+      id,
+      defaultValue = "",
+      unitSelect,
+      className = "",
+      onValueChange = () => null,
+      onChange = () => null,
+    },
+    ref
+  ) => {
     return (
       <div className="unit-wrapper relative rounded-md overflow-hidden">
         <Input
@@ -249,6 +260,7 @@ const UnitInput = forwardRef(
           placeholder="value"
           defaultValue={defaultValue}
           ref={ref}
+          onChange={onChange}
         />
 
         {!unitSelect ? (
@@ -256,10 +268,10 @@ const UnitInput = forwardRef(
             {unit}
           </div>
         ) : (
-          <Select>
+          <Select onValueChange={onValueChange}>
             <SelectTrigger
               className={cn(
-                "w-[50px] absolute top-0 right-0 rounded-none",
+                "w-14 absolute top-0 right-0 rounded-none",
                 className
               )}
             >

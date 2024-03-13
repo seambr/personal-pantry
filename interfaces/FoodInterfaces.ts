@@ -112,3 +112,10 @@ export interface FoodItemSQL {
   "Molybdenum, Mo": number
   Carotene: number
 }
+
+export interface MealIngredient {
+  foodItemId: number
+  amount: number
+  unit: string
+  label: string
+}
