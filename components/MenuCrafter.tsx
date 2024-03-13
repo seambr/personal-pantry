@@ -11,16 +11,15 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { UnitInput } from "./NutritionTableEditWrapper"
 import { Button } from "./ui/button"
-
+import axios from "axios"
+import { useAlert } from "@/components/TopAlert"
 function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
+  const { showAlert } = useAlert()
   const [ingredients, setIngredients] = useState<MealIngredient[]>([])
   const [currentIngredientState, setCurrentIngredientState] =
     useState<MealIngredient>({
-      foodItemId: null,
       amount: null,
       unit: "%",
-      name: null,
-      label: null,
       foodItem: null,
     })
 
@@ -31,13 +30,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
 
     setCurrentIngredientState((_old) => ({
       ..._old!,
-      foodItemId: foodItemId,
       foodItem: matchingfoodItem,
-      label: `${
-        matchingfoodItem.brandName
-          ? matchingfoodItem.brandName
-          : matchingfoodItem.brandOwner
-      } ${matchingfoodItem.description}`,
     }))
   }
   function handleUnitChange(unit: string) {
@@ -52,15 +45,23 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
   }
   function handleAddItem() {
     // Check if all fields are filled
-    console.log("TRYIN TO ADD")
+    const allValuesAreNonNull = Object.values(currentIngredientState).every(
+      (value) => value !== null
+    )
+    if (!allValuesAreNonNull) {
+      // All Fields are not filled
+      // TODO: Add an alert of failure
+      return
+    }
+    // Convert any units to percent of serving size
     const possibleIngredient = { ...currentIngredientState }
     if (
       possibleIngredient.unit !== "%" &&
-      possibleIngredient.unit === possibleIngredient.foodItem.servingSizeUnit
+      possibleIngredient.unit === possibleIngredient.foodItem!.servingSizeUnit
     ) {
       let percent =
         100 *
-        (possibleIngredient.amount / possibleIngredient.foodItem.servingSize)
+        (possibleIngredient.amount! / possibleIngredient.foodItem!.servingSize)
 
       percent = parseFloat(percent.toFixed(2))
       possibleIngredient.amount = percent
@@ -68,6 +69,35 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
     }
 
     setIngredients((_old) => [..._old, possibleIngredient])
+  }
+
+  function saveMealToDatabase() {
+    axios
+      .post("/api/protected/menu/item", {
+        data: {
+          mealIngredients: ingredients.map(({ amount, unit, foodItem }) => ({
+            amount,
+            unit,
+            foodItemId: foodItem?.id,
+          })),
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          showAlert({
+            show: true,
+            message: "Meal added.",
+            error: false,
+          })
+        }
+      })
+      .catch((error) => {
+        showAlert({
+          show: true,
+          message: "Failed to add meal.",
+          error: true,
+        })
+      })
   }
 
   return (
@@ -95,7 +125,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
       </div>
       <div className="buttons flex gap-2">
         <Button onClick={handleAddItem}>Add Ingredient</Button>
-        <Button onClick={handleAddItem} className="bg-green-500">
+        <Button onClick={saveMealToDatabase} className="bg-green-500">
           Save
         </Button>
       </div>
@@ -105,7 +135,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
         {ingredients.map((_ingredient, idx) => (
           <IngredientItem ingredient={_ingredient} key={idx}></IngredientItem>
         ))}
-        <div className="fill mb-20 w-full text-center">
+        <div className="fill mb-20 w-full text-center mt-5">
           Add more items above.
         </div>
       </ScrollArea>

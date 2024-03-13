@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server"
 import React, { useEffect, useState } from "react"
 
 import MenuCrafter from "@/components/MenuCrafter"
+import { AlertProvider, TopAlert } from "@/components/TopAlert"
 
 async function CookPage() {
   const supabase = createClient()
@@ -15,7 +16,10 @@ async function CookPage() {
   return (
     <main className="flex-grow flex justify-center items-center flex-col xl:justify-start  pt-24 md:pt-0">
       <h2 className="text-xl border-b p-2 w-44 text-center">Cook</h2>
-      <MenuCrafter foodItems={foodItems}></MenuCrafter>
+      <AlertProvider>
+        <MenuCrafter foodItems={foodItems}></MenuCrafter>
+        <TopAlert />
+      </AlertProvider>
     </main>
   )
 }

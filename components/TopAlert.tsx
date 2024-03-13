@@ -4,13 +4,21 @@ import React, { createContext, useContext, useRef, useState } from "react"
 
 // Create Context
 const AlertContext = createContext()
-
+interface Alert {
+  show: boolean
+  message: string
+  error: boolean
+}
 // Provider Component
 export const AlertProvider = ({ children }) => {
-  const [alert, setAlert] = useState({ show: false, message: "", error: false })
+  const [alert, setAlert] = useState<Alert>({
+    show: false,
+    message: "",
+    error: false,
+  })
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  function showAlert(_alert: any) {
+  function showAlert(_alert: Alert) {
     if (alert.show) {
       clearTimeout(timeoutRef.current!)
       setAlert({ show: false, message: "", error: false })

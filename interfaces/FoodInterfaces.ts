@@ -114,10 +114,7 @@ export interface FoodItemSQL {
 }
 
 export interface MealIngredient {
-  foodItemId: BigInt | null
   amount: number | null
   unit: string | null
-  name: string | null
-  label: string | null
   foodItem: FoodItemSQL | null
 }
