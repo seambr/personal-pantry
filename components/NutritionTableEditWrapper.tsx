@@ -261,8 +261,11 @@ const UnitInput = forwardRef(
       <div className="unit-wrapper relative rounded-md overflow-hidden">
         <Input
           id={id}
-          type="text"
+          type="number"
           placeholder="value"
+          datatype="number"
+          min={0}
+          max={999}
           defaultValue={defaultValue}
           ref={ref}
           onChange={onChange}

@@ -8,11 +8,11 @@ const AlertContext = createContext()
 // Provider Component
 export const AlertProvider = ({ children }) => {
   const [alert, setAlert] = useState({ show: false, message: "", error: false })
-  const timeoutRef = useRef(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  function showAlert(_alert) {
+  function showAlert(_alert: any) {
     if (alert.show) {
-      clearTimeout(timeoutRef.current)
+      clearTimeout(timeoutRef.current!)
       setAlert({ show: false, message: "", error: false })
       const newTimeoutId = setTimeout(() => {
         setAlert(_alert)
