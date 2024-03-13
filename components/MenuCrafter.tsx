@@ -8,22 +8,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { UnitInput } from "./NutritionTableEditWrapper"
 import { Button } from "./ui/button"
 
 function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
   const [ingredients, setIngredients] = useState<MealIngredient[]>([])
-  const [currentIngredientState, setCurrentIngredientState] = useState<
-    MealIngredient | any
-  >({
-    foodItemId: null,
-    amount: null,
-    unit: "%",
-    name: null,
-    label: null,
-    foodItem: null,
-  })
+  const [currentIngredientState, setCurrentIngredientState] =
+    useState<MealIngredient>({
+      foodItemId: null,
+      amount: null,
+      unit: "%",
+      name: null,
+      label: null,
+      foodItem: null,
+    })
 
   function handleFoodItemChange(foodItemId: BigInt) {
     const matchingfoodItem = foodItems.filter(
@@ -53,7 +52,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
   }
   function handleAddItem() {
     // Check if all fields are filled
-
+    console.log("TRYIN TO ADD")
     const possibleIngredient = { ...currentIngredientState }
     if (
       possibleIngredient.unit !== "%" &&
@@ -96,14 +95,28 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
       </div>
       <Button onClick={handleAddItem}>Add Ingredient</Button>
       {/* FIXME: Make this a scroll area */}
-      <div className="added-items text-xs mt-5">
+      <ScrollArea className="added-items text-xs mt-5 h-[450px] p-2">
         {ingredients.map((_ingredient, idx) => (
-          <p key={idx}>
-            {_ingredient.amount}
-            {_ingredient.unit} of {_ingredient.label}
-          </p>
+          <IngredientItem ingredient={_ingredient} key={idx}></IngredientItem>
         ))}
-      </div>
+        <div className="fill mb-20 w-full text-center">...</div>
+      </ScrollArea>
+    </div>
+  )
+}
+
+function IngredientItem({ ingredient }: { ingredient: MealIngredient }) {
+  let percent = ingredient.foodItem?.servingSize * (ingredient.amount / 100)
+  percent = parseFloat(percent.toFixed(2))
+  return (
+    <div className="flex gap-2 border-b border-secondary p-2 shadow-sm w-full items-center ">
+      <span className="flex flex-wrap">
+        {ingredient.foodItem?.brandName || ingredient.foodItem?.brandOwner}{" "}
+        {ingredient.foodItem?.description}
+      </span>
+      <span className="bg-secondary rounded-full py-1 px-2 ml-auto flex flex-shrink-0">
+        {percent} {ingredient.foodItem?.servingSizeUnit}
+      </span>
     </div>
   )
 }
