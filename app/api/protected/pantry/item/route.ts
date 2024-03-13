@@ -5,8 +5,6 @@ import { FoodItemSQL } from "@/interfaces/FoodInterfaces"
 import { calcLength } from "framer-motion"
 
 export async function POST(req: NextRequest) {
-  // TODO: ADD one item to pantry
-
   try {
     const supabase = createClient()
 
@@ -30,7 +28,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  // TODO: GET users entire pantry, BUT NOT ALL THE NUTRIENT DETAILS
+  // GET users entire pantry, BUT NOT ALL THE NUTRIENT DETAILS
   try {
     const url = req.nextUrl
     const searchParams = url.searchParams
@@ -50,7 +48,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  // TODO: ADD one item to pantry
+  // ADD one item to pantry
 
   try {
     const supabase = createClient()
@@ -80,7 +78,7 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  // TODO: ADD one item to pantry
+  // TODO: DELETE one item to pantry
 
   try {
   } catch (error) {}

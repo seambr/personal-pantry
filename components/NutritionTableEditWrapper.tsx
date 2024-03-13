@@ -61,10 +61,15 @@ function NutritionTableEditWrapper({
     setFoodItem(newFood)
 
     async function updateDatabase() {
-      const res = await axios.put("/api/protected/pantry/item", {
-        data: { foodItem: newFood },
-      })
-      console.log(res)
+      try {
+        // Update Database
+        const res = await axios.put("/api/protected/pantry/item", {
+          data: { foodItem: newFood },
+        })
+      } catch (error) {
+        // Failed To Update
+        // TODO: Trigger Failed Notification
+      }
     }
 
     updateDatabase()
@@ -268,18 +273,18 @@ const UnitInput = forwardRef(
             {unit}
           </div>
         ) : (
-          <Select onValueChange={onValueChange}>
+          <Select onValueChange={onValueChange} defaultValue="%">
             <SelectTrigger
               className={cn(
-                "w-14 absolute top-0 right-0 rounded-none",
+                "w-20 absolute top-0 right-0 rounded-none bg-primary-foreground flex",
                 className
               )}
             >
-              <SelectValue placeholder="g" />
+              <SelectValue placeholder="unit" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="g">g</SelectItem>
-              <SelectItem value="percent-of-serving-size">%</SelectItem>
+              <SelectItem value="%">%</SelectItem>
+              {unit && <SelectItem value={unit}>{unit}</SelectItem>}
             </SelectContent>
           </Select>
         )}

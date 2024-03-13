@@ -93,7 +93,6 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
       }
     })
 
-    // FIXME: Not complete
     const body = {
       data: {
         edited: false,
@@ -114,7 +113,6 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
       },
     }
 
-    console.log(body.data)
     try {
       const res = await axios.post(
         "http://localhost:3000/api/protected/pantry/item",
@@ -125,7 +123,6 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
         showAlert({ show: true, message: "Added item to fridge." })
       }
     } catch {
-      // TODO: Make this an alert of some kind
       showAlert({ show: true, message: "Failed to add item to fridge." })
     }
   }

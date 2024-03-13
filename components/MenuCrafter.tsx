@@ -16,7 +16,14 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
   const [ingredients, setIngredients] = useState<MealIngredient[]>([])
   const [currentIngredientState, setCurrentIngredientState] = useState<
     MealIngredient | any
-  >({ foodItemId: null, amount: null, unit: null, name: null, label: null })
+  >({
+    foodItemId: null,
+    amount: null,
+    unit: "%",
+    name: null,
+    label: null,
+    foodItem: null,
+  })
 
   function handleFoodItemChange(foodItemId: BigInt) {
     const matchingfoodItem = foodItems.filter(
@@ -26,6 +33,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
     setCurrentIngredientState((_old) => ({
       ..._old!,
       foodItemId: foodItemId,
+      foodItem: matchingfoodItem,
       label: `${
         matchingfoodItem.brandName
           ? matchingfoodItem.brandName
@@ -44,23 +52,30 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
     }))
   }
   function handleAddItem() {
-    setIngredients((_old) => [..._old, currentIngredientState])
-    setCurrentIngredientState
+    // Check if all fields are filled
+
+    const possibleIngredient = { ...currentIngredientState }
+    if (
+      possibleIngredient.unit !== "%" &&
+      possibleIngredient.unit === possibleIngredient.foodItem.servingSizeUnit
+    ) {
+      let percent =
+        100 *
+        (possibleIngredient.amount / possibleIngredient.foodItem.servingSize)
+
+      percent = parseFloat(percent.toFixed(2))
+      possibleIngredient.amount = percent
+      possibleIngredient.unit = "%"
+    }
+
+    setIngredients((_old) => [..._old, possibleIngredient])
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="added-items text-xs">
-        {ingredients.map((_ingredient, idx) => (
-          <p key={idx}>
-            {_ingredient.amount} {_ingredient.unit} of {_ingredient.label}
-          </p>
-        ))}
-      </div>
-
+    <div className="w-full flex flex-col items-center h-full">
       <div className="item-unit-selector flex items-center justify-center w-full gap-2 p-5">
         <Select onValueChange={handleFoodItemChange}>
-          <SelectTrigger className="w-60 min-w-60 max-w-60">
+          <SelectTrigger className="w-48 min-w-48 max-w-48 ">
             <SelectValue placeholder="Select food item to add." />
           </SelectTrigger>
           <SelectContent>
@@ -73,13 +88,22 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
           </SelectContent>
         </Select>
         <UnitInput
-          unit="g"
+          unit={currentIngredientState?.foodItem?.servingSizeUnit || null}
           unitSelect
           onValueChange={handleUnitChange}
           onChange={handleAmountChange}
         />
       </div>
       <Button onClick={handleAddItem}>Add Ingredient</Button>
+      {/* FIXME: Make this a scroll area */}
+      <div className="added-items text-xs mt-5">
+        {ingredients.map((_ingredient, idx) => (
+          <p key={idx}>
+            {_ingredient.amount}
+            {_ingredient.unit} of {_ingredient.label}
+          </p>
+        ))}
+      </div>
     </div>
   )
 }
