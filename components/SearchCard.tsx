@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/table"
 import { useAlert } from "@/components/TopAlert"
 import FoodTable from "./FoodTable"
+import { error } from "console"
 function SearchCard({ foodItem }: { foodItem: FoodItem }) {
   const { showAlert } = useAlert()
   async function addToFridge(item: FoodItem) {
@@ -120,10 +121,18 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
       )
 
       if (res.status === 200) {
-        showAlert({ show: true, message: "Added item to fridge." })
+        showAlert({
+          show: true,
+          message: "Added item to fridge.",
+          error: false,
+        })
       }
     } catch {
-      showAlert({ show: true, message: "Failed to add item to fridge." })
+      showAlert({
+        show: true,
+        message: "Failed to add item to fridge.",
+        error: true,
+      })
     }
   }
 

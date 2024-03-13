@@ -78,7 +78,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
             <SelectValue placeholder="Select food item to add." />
           </SelectTrigger>
           <SelectContent>
-            {foodItems.map((foodItem, idx) => (
+            {foodItems?.map((foodItem, idx) => (
               <SelectItem value={foodItem.id} key={idx}>
                 {foodItem.brandName || foodItem.brandOwner}{" "}
                 {foodItem.description}
@@ -93,13 +93,21 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
           onChange={handleAmountChange}
         />
       </div>
-      <Button onClick={handleAddItem}>Add Ingredient</Button>
+      <div className="buttons flex gap-2">
+        <Button onClick={handleAddItem}>Add Ingredient</Button>
+        <Button onClick={handleAddItem} className="bg-green-500">
+          Save
+        </Button>
+      </div>
+
       {/* FIXME: Make this a scroll area */}
       <ScrollArea className="added-items text-xs mt-5 h-[450px] p-2">
         {ingredients.map((_ingredient, idx) => (
           <IngredientItem ingredient={_ingredient} key={idx}></IngredientItem>
         ))}
-        <div className="fill mb-20 w-full text-center">...</div>
+        <div className="fill mb-20 w-full text-center">
+          Add more items above.
+        </div>
       </ScrollArea>
     </div>
   )
