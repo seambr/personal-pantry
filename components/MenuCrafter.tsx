@@ -46,11 +46,15 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
   function handleAddItem() {
     // Check if all fields are filled
     const allValuesAreNonNull = Object.values(currentIngredientState).every(
-      (value) => value !== null
+      (value) => value !== null && value !== undefined && value !== ""
     )
-    if (!allValuesAreNonNull) {
+    if (!allValuesAreNonNull || isNaN(currentIngredientState.amount!)) {
       // All Fields are not filled
-      // TODO: Add an alert of failure
+      showAlert({
+        show: true,
+        message: "You must fill out all fields.",
+        error: true,
+      })
       return
     }
     // Convert any units to percent of serving size
