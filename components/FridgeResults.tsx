@@ -23,7 +23,7 @@ function FridgeResults({ user }) {
 
   return (
     <>
-      <ScrollArea className="h-[calc(100vh-15em)] w-full rounded-md p-4 gap-2">
+      <ScrollArea className="h-[calc(100vh-15em)] w-full p-4 gap-2">
         <div className="fridge-grid flex flex-col sm:grid sm:grid-cols-2 gap-1 gap-y-5 gap-x-5 lg:grid-cols-3">
           {results?.map((r: FoodItemSQL, idx) => (
             <FridgeCard key={idx} foodItem={r} />

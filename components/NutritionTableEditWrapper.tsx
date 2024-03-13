@@ -22,6 +22,7 @@ function NutritionTableEditWrapper({
   setFoodItem: React.Dispatch<React.SetStateAction<FoodItemSQL | null>>
 }) {
   const [isEdit, setisEdit] = useState<boolean>()
+  const servingSizeUnitRef = useRef()
   const caloriesRef = useRef()
   const totalFatRef = useRef()
   const saturatedFatRef = useRef()
@@ -56,6 +57,7 @@ function NutritionTableEditWrapper({
       servingSize: parseFloat(servingSizeRef.current.value),
       brandOwner: brandOwnerRef.current.value,
       brandName: brandNameRef.current.value,
+      servingSizeUnit: servingSizeUnitRef.current.value,
     }
 
     setFoodItem(newFood)
@@ -213,9 +215,17 @@ function NutritionTableEditWrapper({
             <UnitInput
               id="serving-size"
               type="text"
-              unit="g"
+              unit={foodItem?.servingSizeUnit}
               ref={servingSizeRef}
               defaultValue={foodItem?.servingSize}
+            />
+            <Label htmlFor="serving-size">Serving Size Unit</Label>
+            <Input
+              id="serving-size-unit"
+              type="text"
+              unit="g"
+              ref={servingSizeUnitRef}
+              defaultValue={foodItem?.servingSizeUnit}
             />
           </div>
 
