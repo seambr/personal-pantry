@@ -12,13 +12,22 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json()
   const mealIngredients: MealIngredient[] = body.data.mealIngredients
+  const mealName: string = body.data.name
 
   const supabase = createClient()
-  const { data, error } = await supabase
-    .from("MealIngredients")
-    .insert(mealIngredients)
+  let { data: meals, error } = await supabase
+    .from("Meals")
+    .insert({ name: mealName })
+    .select()
 
-  if (!error) {
+  const mealId = meals![0].id
+
+  let { data: mealsIngredients, error2 } = await supabase
+    .from("MealIngredients")
+    .insert(mealIngredients.map((old) => ({ ...old, meal_id: mealId })))
+    .select()
+
+  if (!error && !error2) {
     return new NextResponse(JSON.stringify({ success: "Added Meal" }), {
       status: 200,
     })

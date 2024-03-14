@@ -21,6 +21,7 @@ function NutritionTableEditWrapper({
   foodItem: FoodItemSQL | null
   setFoodItem: React.Dispatch<React.SetStateAction<FoodItemSQL | null>>
 }) {
+  // TODO: Track householdServingSizeFullText also
   const [isEdit, setisEdit] = useState<boolean>()
   const servingSizeUnitRef = useRef(null)
   const caloriesRef = useRef(null)
@@ -242,7 +243,7 @@ function NutritionTableEditWrapper({
   return (
     foodItem && (
       <>
-        <h1 className="textx-xl border-b mb-5">
+        <h1 className="textx-xl border-b mb-5 text-center pb-2">
           {foodItem.brandName || foodItem.brandOwner} {foodItem.description}
         </h1>
         <NutritionTable

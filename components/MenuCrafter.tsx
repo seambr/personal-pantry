@@ -84,6 +84,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
             unit,
             foodItemId: foodItem?.id,
           })),
+          name: "Test Name",
         },
       })
       .then((res) => {

@@ -57,6 +57,7 @@ function NutritionTable({
         name="Serving Size"
         value={foodItem.servingSize}
         unit={foodItem.servingSizeUnit}
+        alt_label={foodItem.householdServingFullText}
         right
       ></MainTag>
       <p className="text-xs mt-2 opacity-50">
@@ -76,6 +77,7 @@ function MainTag({
   unit,
   right = false,
   className = "",
+  alt_label = null,
 }: {
   first: boolean
   last: boolean
@@ -85,6 +87,7 @@ function MainTag({
   unit: string
   right: bool
   className: string
+  alt_label: string | null
 }) {
   return (
     <div
@@ -98,6 +101,7 @@ function MainTag({
         <span className="font-normal">
           {value} {unit}
         </span>
+        <p className="text-xs">{alt_label}</p>
       </p>
       {children}
     </div>
