@@ -76,15 +76,51 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
   }
 
   function saveMealToDatabase() {
+    const flattened = {
+      ingredient1_id: null,
+      ingredient1_amount: null,
+      ingredient2_id: null,
+      ingredient2_amount: null,
+      ingredient3_id: null,
+      ingredient3_amount: null,
+      ingredient4_id: null,
+      ingredient4_amount: null,
+      ingredient5_id: null,
+      ingredient5_amount: null,
+      ingredient6_id: null,
+      ingredient6_amount: null,
+      ingredient7_id: null,
+      ingredient7_amount: null,
+      ingredient8_id: null,
+      ingredient8_amount: null,
+      ingredient9_id: null,
+      ingredient9_amount: null,
+      ingredient10_id: null,
+      ingredient10_amount: null,
+      ingredient11_id: null,
+      ingredient11_amount: null,
+      ingredient12_id: null,
+      ingredient12_amount: null,
+      ingredient13_id: null,
+      ingredient13_amount: null,
+      ingredient14_id: null,
+      ingredient14_amount: null,
+      ingredient15_id: null,
+      ingredient15_amount: null,
+    }
+
+    ingredients.forEach((ingredient, index) => {
+      if (index < 15) {
+        flattened[`ingredient${index + 1}_id`] = ingredient.foodItem?.id
+        flattened[`ingredient${index + 1}_amount`] = ingredient.amount
+      }
+    })
+
     axios
       .post("/api/protected/menu/item", {
         data: {
-          mealIngredients: ingredients.map(({ amount, unit, foodItem }) => ({
-            amount,
-            unit,
-            foodItemId: foodItem?.id,
-          })),
           name: "Test Name",
+          ...flattened,
         },
       })
       .then((res) => {

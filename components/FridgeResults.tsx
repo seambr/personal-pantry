@@ -54,8 +54,6 @@ function FridgeCard({ foodItem }: { foodItem: FoodItemSQL }) {
           <p>{foodItem.Calories} Calories</p>
           <p className="text-xs">{foodItem.id}</p>
         </div>
-
-        {/* <FoodTable foodItem={foodItem} /> */}
       </div>
     </Link>
   )

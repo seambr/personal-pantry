@@ -1,14 +1,18 @@
+import MealCard from "@/components/MealCard"
+import { createClient } from "@/utils/supabase/server"
+import { ChevronLeftIcon } from "@radix-ui/react-icons"
 import React from "react"
 
-function MenuPage() {
+async function MenuPage() {
   const supabase = createClient()
-  const { data, error } = await supabase
-    .from("MealIngredients")
-    .return(
-      <main className="flex-grow flex justify-center items-center flex-col xl:justify-start">
-        Menu Page
-      </main>
-    )
+
+  let { data: Meals, error } = await supabase.from("Meals").select("*")
+
+  return (
+    <main className="flex-grow flex justify-center items-center flex-col xl:justify-start">
+      {JSON.stringify(Meals)}
+    </main>
+  )
 }
 
 export default MenuPage

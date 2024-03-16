@@ -127,7 +127,8 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
           error: false,
         })
       }
-    } catch {
+    } catch (e) {
+      console.error(e.message)
       showAlert({
         show: true,
         message: "Failed to add item to fridge.",

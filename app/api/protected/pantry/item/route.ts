@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
       .insert([body?.data])
       .select()
     if (error) {
+      console.log(error)
       throw new Error("Failed to add")
     }
     return new NextResponse(JSON.stringify({ success: "Added Item" }), {

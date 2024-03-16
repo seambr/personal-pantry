@@ -125,4 +125,34 @@ export interface Meal {
   amount: number | null
   unit: string | null
   foodItem: FoodItemSQL | null
+  ingredient1_id: number | null
+  ingredient1_amount: number | null
+  ingredient2_id: number | null
+  ingredient2_amount: number | null
+  ingredient3_id: number | null
+  ingredient3_amount: number | null
+  ingredient4_id: number | null
+  ingredient4_amount: number | null
+  ingredient5_id: number | null
+  ingredient5_amount: number | null
+  ingredient6_id: number | null
+  ingredient6_amount: number | null
+  ingredient7_id: number | null
+  ingredient7_amount: number | null
+  ingredient8_id: number | null
+  ingredient8_amount: number | null
+  ingredient9_id: number | null
+  ingredient9_amount: number | null
+  ingredient10_id: number | null
+  ingredient10_amount: number | null
+  ingredient11_id: number | null
+  ingredient11_amount: number | null
+  ingredient12_id: number | null
+  ingredient12_amount: number | null
+  ingredient13_id: number | null
+  ingredient13_amount: number | null
+  ingredient14_id: number | null
+  ingredient14_amount: number | null
+  ingredient15_id: number | null
+  ingredient15_amount: number | null
 }

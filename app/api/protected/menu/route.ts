@@ -5,7 +5,9 @@ export async function GET() {
   // TODO: GET all items from menu
 
   const supabase = createClient()
-  const { data, error } = await supabase.from("MealIngredients").select("*")
+  const { data, error } = await supabase.from("Meals").select("*")
+
+  console.log(data)
 
   if (!error) {
     return new NextResponse(JSON.stringify({ success: "Retrieved Meals" }), {
