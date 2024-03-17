@@ -1,7 +1,40 @@
 import { Meal, MealIngredient } from "@/interfaces/FoodInterfaces"
+import { createClient } from "@/utils/supabase/server"
 import React from "react"
 
-function MealCard({ meal }: { meal: Meal }) {
+async function MealCard({ meal }: { meal: Meal }) {
+  // get list of all ingredient_ids
+  const extractIngredientIds = (meal) => {
+    let ingredientIds = []
+    for (let i = 1; i <= 15; i++) {
+      const ingredientId = meal[`ingredient${i}_id`]
+      if (ingredientId !== null) {
+        ingredientIds.push(ingredientId)
+      }
+    }
+    return ingredientIds
+  }
+  const extractIngredientAmounts = (meal) => {
+    let amounts = []
+    for (let i = 1; i <= 15; i++) {
+      const ingredientId = meal[`ingredient${i}_amount`]
+      if (ingredientId !== null) {
+        amounts.push(ingredientId)
+      }
+    }
+    return amounts
+  }
+  // FIXME: make a ids --> amount map instead
+  const ingredientIds = extractIngredientIds(meal)
+  const ingredientAmounts = extractIngredientAmounts(meal)
+
+  const supabase = createClient()
+
+  let { data: FoodItems, error } = await supabase
+    .from("FoodItems")
+    .select("*")
+    .in("id", ingredientIds)
+  console.log(FoodItems)
   return (
     <div className="w-96 meal-item hover:bg-secondary flex border-b border-secondary shadow-md  p-5 justify-between items-center h-28 sm:h-32">
       <div className="info-container">
