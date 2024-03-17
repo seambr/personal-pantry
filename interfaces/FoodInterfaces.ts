@@ -121,8 +121,8 @@ export interface MealIngredient {
 }
 
 export interface Meal {
-  // id
-  amount: number | null
+  id: number
+  name: string
   unit: string | null
   foodItem: FoodItemSQL | null
   ingredient1_id: number | null

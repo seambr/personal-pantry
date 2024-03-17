@@ -10,7 +10,9 @@ async function MenuPage() {
 
   return (
     <main className="flex-grow flex justify-center items-center flex-col xl:justify-start">
-      {JSON.stringify(Meals)}
+      {Meals?.map((meal, i) => {
+        return <MealCard meal={meal} key={i}></MealCard>
+      })}
     </main>
   )
 }
