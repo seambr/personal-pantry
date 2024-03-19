@@ -109,10 +109,53 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
       ingredient15_amount: null,
     }
 
+    // TODO: Combine all nutrition here
+
+    let calories = 0 // g
+    let total_fat = 0 // g
+    let saturated_fat = 0 // g
+    let trans_fat = 0 // g
+    let cholesterol = 0 // mg
+    let sodium = 0 // mg
+    let total_carbohydrates = 0 // g
+    let dietary_fiber = 0 // g
+    let total_sugars = 0 // g
+    let added_sugars = 0 // g
+    let protein = 0 // g
+
     ingredients.forEach((ingredient, index) => {
-      if (index < 15) {
+      if (index < 15 && ingredient.foodItem) {
+        console.log(ingredient.foodItem)
         flattened[`ingredient${index + 1}_id`] = ingredient.foodItem?.id
         flattened[`ingredient${index + 1}_amount`] = ingredient.amount
+
+        // Increase meal macros proportionately
+        calories +=
+          (ingredient.foodItem?.Calories || 0) * (ingredient.amount! / 100)
+        total_fat +=
+          (ingredient.foodItem?.["Total Fat"] || 0) * (ingredient.amount! / 100)
+        saturated_fat +=
+          (ingredient.foodItem?.["Saturated Fat"] || 0) *
+          (ingredient.amount! / 100)
+        trans_fat +=
+          (ingredient.foodItem?.["Trans Fat"] || 0) * (ingredient.amount! / 100)
+        cholesterol +=
+          (ingredient.foodItem?.Cholesterol || 0) * (ingredient.amount! / 100)
+        sodium +=
+          (ingredient.foodItem?.Sodium || 0) * (ingredient.amount! / 100)
+        total_carbohydrates +=
+          (ingredient.foodItem?.Carbohydrate || 0) * (ingredient.amount! / 100)
+        dietary_fiber +=
+          (ingredient.foodItem?.["Dietary Fiber"] || 0) *
+          (ingredient.amount! / 100)
+        total_sugars +=
+          (ingredient.foodItem?.["Total Sugars"] || 0) *
+          (ingredient.amount! / 100)
+        added_sugars +=
+          (ingredient.foodItem?.["Added Sugars"] || 0) *
+          (ingredient.amount! / 100)
+        protein +=
+          (ingredient.foodItem?.Protein || 0) * (ingredient.amount! / 100)
       }
     })
 
@@ -121,6 +164,17 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
         data: {
           name: "Test Name",
           ...flattened,
+          calories,
+          total_fat,
+          saturated_fat,
+          trans_fat,
+          cholesterol,
+          sodium,
+          total_carbohydrates,
+          dietary_fiber,
+          total_sugars,
+          added_sugars,
+          protein,
         },
       })
       .then((res) => {

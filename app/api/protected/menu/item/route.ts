@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json()
   const meal = body.data
-
+  console.log(meal)
   const supabase = createClient()
   let { data: meals, error } = await supabase
     .from("Meals")

@@ -155,4 +155,15 @@ export interface Meal {
   ingredient14_amount: number | null
   ingredient15_id: number | null
   ingredient15_amount: number | null
+  calories: number
+  total_fat: number
+  saturated_fat: number
+  trans_fat: number
+  cholesterol: number
+  sodium: number
+  total_carbohydrates: number
+  dietary_fiber: number
+  total_sugars: number
+  added_sugars: number
+  protein: number
 }

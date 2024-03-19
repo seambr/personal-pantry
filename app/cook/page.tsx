@@ -10,7 +10,7 @@ async function CookPage() {
   let { data: foodItems, error } = await supabase
     .from("FoodItems")
     .select(
-      "id,edited,description,ingredients,createdAt,brandOwner,brandName,foodCategory,servingSize,servingSizeUnit,householdServingFullText,Calories"
+      `id,edited,description,ingredients,createdAt,brandOwner,brandName,foodCategory,servingSize,servingSizeUnit,householdServingFullText,Calories,"Total Fat","Saturated Fat","Trans Fat",Cholesterol,Sodium,Carbohydrate,"Dietary Fiber","Total Sugars","Added Sugars",Protein`
     )
 
   return (

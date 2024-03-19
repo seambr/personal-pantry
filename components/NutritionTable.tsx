@@ -35,7 +35,7 @@ function NutritionTable({
       <MainTag
         name="Cholesterol"
         value={foodItem.Cholesterol}
-        unit="g"
+        unit="mg"
       ></MainTag>
       <MainTag name="Sodium" value={foodItem.Sodium} unit="mg"></MainTag>
       <MainTag name="Total Carbohydrate" value={foodItem.Carbohydrate} unit="g">

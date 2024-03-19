@@ -43,8 +43,7 @@ async function MealCard({ meal }: { meal: Meal }) {
       </div>
 
       <div className="shorthand-nutrition text-right">
-        <p>200 g</p>
-        <p>500 Calories</p>
+        <p>{meal.calories} Calories</p>
         <p className="text-xs">{meal.id}</p>
       </div>
     </div>
