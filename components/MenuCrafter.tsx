@@ -23,6 +23,14 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
       foodItem: null,
     })
 
+  function resetIngredientState() {
+    setIngredients([])
+    setCurrentIngredientState({
+      amount: null,
+      unit: "%",
+      foodItem: null,
+    })
+  }
   function handleFoodItemChange(foodItemId: BigInt) {
     const matchingfoodItem = foodItems.filter(
       (_foodItem) => _foodItem.id === foodItemId
@@ -179,6 +187,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
       })
       .then((res) => {
         if (res.status === 200) {
+          resetIngredientState()
           showAlert({
             show: true,
             message: "Meal added.",
