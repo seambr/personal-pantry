@@ -31,7 +31,7 @@ function Search() {
     // Fetch search results
     try {
       axios
-        .post(`${process.env.API_URL}/api/search`, {
+        .post(`/api/search`, {
           query: query,
         })
         .then((r) => setResults(r.data));

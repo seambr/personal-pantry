@@ -115,10 +115,7 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
     };
 
     try {
-      const res = await axios.post(
-        `${process.env.API_URL}/api/protected/pantry/item`,
-        body
-      );
+      const res = await axios.post(`/api/protected/pantry/item`, body);
 
       if (res.status === 200) {
         showAlert({
