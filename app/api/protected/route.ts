@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async function myApiRoute(req: NextRequest) {
   const supabase = createClient();
-  let { data: test, error1 } = await supabase.from("test").select("*");
-  let { data: user, error2 } = await supabase.auth.getUser();
+  let { data: test, error: error1 } = await supabase.from("test").select("*");
+  let { data: user, error: error2 } = await supabase.auth.getUser();
 
   const {} = await supabase.auth.signOut();
   if (error1 || error2) {
