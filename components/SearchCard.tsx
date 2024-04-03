@@ -1,12 +1,12 @@
-import React from "react"
-import axios, { isCancel, AxiosError } from "axios"
-import { FoodItem } from "@/interfaces/FoodInterfaces"
-import { Button } from "./ui/button"
+import React from "react";
+import axios, { isCancel, AxiosError } from "axios";
+import { FoodItem } from "@/interfaces/FoodInterfaces";
+import { Button } from "./ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 
 import {
   Table,
@@ -16,12 +16,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { useAlert } from "@/components/TopAlert"
-import FoodTable from "./FoodTable"
-import { error } from "console"
+} from "@/components/ui/table";
+import { useAlert } from "@/components/TopAlert";
+import FoodTable from "./FoodTable";
+import { error } from "console";
 function SearchCard({ foodItem }: { foodItem: FoodItem }) {
-  const { showAlert } = useAlert()
+  const { showAlert } = useAlert();
   async function addToFridge(item: FoodItem) {
     const nutrientMap = {
       208.0: ["Calories", "KCAL"],
@@ -68,31 +68,31 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
       310.0: ["Chromium, Cr", "UG"],
       316.0: ["Molybdenum, Mo", "UG"],
       393.0: ["Carotene", "MCG_RE"],
-    }
+    };
 
     function buildNutrientSkeleton(nutrientMap) {
-      const nutrients = {}
+      const nutrients = {};
       Object.keys(nutrientMap).forEach((key) => {
-        const nutrientName = nutrientMap[key][0]
-        nutrients[nutrientName] = null
-      })
+        const nutrientName = nutrientMap[key][0];
+        nutrients[nutrientName] = null;
+      });
 
-      return nutrients
+      return nutrients;
     }
 
-    const nutrients = buildNutrientSkeleton(nutrientMap)
+    const nutrients = buildNutrientSkeleton(nutrientMap);
 
     foodItem?.foodNutrients?.forEach((_n) => {
-      const nutrientTuple = nutrientMap[_n.nutrientNumber]
+      const nutrientTuple = nutrientMap[_n.nutrientNumber];
 
       if (nutrientTuple !== undefined) {
-        const nutrientName = nutrientTuple[0]
-        console.log(nutrientName)
+        const nutrientName = nutrientTuple[0];
+        console.log(nutrientName);
         if (Object.hasOwn(nutrients, nutrientName)) {
-          nutrients[nutrientName] = _n.value
+          nutrients[nutrientName] = _n.value;
         }
       }
-    })
+    });
 
     const body = {
       data: {
@@ -112,28 +112,28 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
         householdServingFullText: item.householdServingFullText,
         ...nutrients,
       },
-    }
+    };
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/protected/pantry/item",
+        `${process.env.API_URL}/api/protected/pantry/item`,
         body
-      )
+      );
 
       if (res.status === 200) {
         showAlert({
           show: true,
           message: "Added item to fridge.",
           error: false,
-        })
+        });
       }
     } catch (e) {
-      console.error(e.message)
+      console.error(e.message);
       showAlert({
         show: true,
         message: "Failed to add item to fridge.",
         error: true,
-      })
+      });
     }
   }
 
@@ -162,7 +162,7 @@ function SearchCard({ foodItem }: { foodItem: FoodItem }) {
         </Popover>
       </div>
     </div>
-  )
+  );
 }
 
-export default SearchCard
+export default SearchCard;

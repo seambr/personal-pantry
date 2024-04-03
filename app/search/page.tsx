@@ -1,45 +1,45 @@
-"use client"
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import SearchResults from "@/components/SearchResults"
-import { SearchResponse, SearchCriteria } from "@/interfaces/FoodInterfaces"
-import axios, { isCancel, AxiosError } from "axios"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { BookmarkFilledIcon } from "@radix-ui/react-icons"
-import { motion, AnimatePresence } from "framer-motion"
-import { AlertProvider, TopAlert } from "@/components/TopAlert"
+"use client";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import SearchResults from "@/components/SearchResults";
+import { SearchResponse, SearchCriteria } from "@/interfaces/FoodInterfaces";
+import axios, { isCancel, AxiosError } from "axios";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { BookmarkFilledIcon } from "@radix-ui/react-icons";
+import { motion, AnimatePresence } from "framer-motion";
+import { AlertProvider, TopAlert } from "@/components/TopAlert";
 function Search() {
-  const inputRef = useRef(null)
-  const [input, setInput] = useState<string>("")
-  const [results, setResults] = useState<SearchResponse>()
+  const inputRef = useRef(null);
+  const [input, setInput] = useState<string>("");
+  const [results, setResults] = useState<SearchResponse>();
 
   const handleInputChange = () => {
-    setInput(inputRef.current!.value)
-  }
+    setInput(inputRef.current!.value);
+  };
 
   const handleSearch = (e: MouseEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const query: SearchCriteria = {
       query: input,
       dataType: ["Branded"],
       pageNumber: 1,
       pageSize: 25,
-    }
+    };
     // Fetch search results
     try {
       axios
-        .post("http://localhost:3000/api/search", {
+        .post(`${process.env.API_URL}/api/search`, {
           query: query,
         })
-        .then((r) => setResults(r.data))
+        .then((r) => setResults(r.data));
     } catch {
       // TODO: Make this an alert of some kind
-      console.log("Failed to Fetch Data")
+      console.log("Failed to Fetch Data");
     }
-  }
+  };
 
   return (
     <main className="w-full flex flex-col items-center">
@@ -62,7 +62,7 @@ function Search() {
         <TopAlert />
       </AlertProvider>
     </main>
-  )
+  );
 }
 
-export default Search
+export default Search;
