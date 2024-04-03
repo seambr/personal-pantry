@@ -184,6 +184,15 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
       }
     });
 
+    // TODO: Make sure all values are valid
+    if (ingredients.length <= 0 || !name) {
+      showAlert({
+        show: true,
+        message: "Meal not valid.",
+        error: true,
+      });
+      return;
+    }
     axios
       .post("/api/protected/menu/item", {
         data: {
@@ -254,12 +263,19 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
             <AlertDialogHeader>
               <AlertDialogTitle>Finishing Touches.</AlertDialogTitle>
               <AlertDialogDescription>
-                Enter a name or description for your meal.
+                Enter a name and serving for your meal.
                 <Input
                   type="text"
                   placeholder="Enter name."
-                  id="food-item"
+                  id="meal-name-input"
                   ref={nameRef}
+                  className="w-full mt-2"
+                />
+                <Input
+                  type="text"
+                  placeholder="Enter serving."
+                  id="meal-serving-input"
+                  // ref={null}
                   className="w-full mt-2"
                 />
               </AlertDialogDescription>
