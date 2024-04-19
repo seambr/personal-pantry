@@ -1,9 +1,9 @@
-import Image from "next/image"
+import Image from "next/image";
 
-import HomeTile from "@/components/HomeTile"
-import { useEffect, useState } from "react"
-import Typewriter from "@/components/Typewriter"
-import { Button } from "@/components/ui/button"
+import HomeTile from "@/components/HomeTile";
+import { useEffect, useState } from "react";
+import Typewriter from "@/components/Typewriter";
+import { Button } from "@/components/ui/button";
 
 const detailArray = [
   "Track your macros.",
@@ -12,7 +12,7 @@ const detailArray = [
   "Scan your receipts.",
   "View your progress.",
   "Share your favorite recipes.",
-]
+];
 
 export default function Home() {
   return (
@@ -28,8 +28,8 @@ export default function Home() {
         className="text-md text-left opacity-50"
       />
       <Button>
-        <a href="/api/auth/login">Get Started</a>
+        <a href="/login">Get Started</a>
       </Button>
     </main>
-  )
+  );
 }
