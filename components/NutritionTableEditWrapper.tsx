@@ -269,7 +269,7 @@ const UnitInput = forwardRef(
     ref
   ) => {
     return (
-      <div className="unit-wrapper relative rounded-md overflow-hidden">
+      <div className="unit-wrapper relative rounded-md overflow-hidden w-36 flex">
         <Input
           id={id}
           type="number"
@@ -290,7 +290,7 @@ const UnitInput = forwardRef(
           <Select onValueChange={onValueChange} defaultValue="%">
             <SelectTrigger
               className={cn(
-                "w-20 absolute top-0 right-0 rounded-none bg-primary-foreground flex",
+                "w-16 absolute top-0 right-0 rounded-none bg-primary-foreground flex",
                 className
               )}
             >
