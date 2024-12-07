@@ -12,7 +12,10 @@ A fully responsive web app to help keep track of your food.
     <img src="./docs/search.png" alt="Search the usda food database" style="width: 75%; height: auto;"/>
 </div>
 
-## Save Items to your Fridge, Where you can edit the Macros.
+## Save Items to your Fridge, Where you can view and edit the Macros.
+<div align="center">
+    <img src="./docs/view.png" alt="Search the usda food database" style="width: 75%; height: auto;"/>
+</div>
 
 <div align="center">
     <img src="./docs/edit.png" alt="Search the usda food database" style="width: 75%; height: auto;"/>
