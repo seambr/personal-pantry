@@ -2,7 +2,7 @@
 
 A fully responsive web app to help keep track of your food.
 
-<div style="display: flex; justify-content: center; gap:2em">
+<div style="display: flex; justify-content: center">
     <img src="./docs/responsive.png" alt="Search the usda food database" style="width: 25%; height: auto;"/>
     <img src="./docs/start.png" alt="Search the usda food database" style="width: 75%; height: auto;"/>
 </div>
