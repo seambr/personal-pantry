@@ -79,8 +79,45 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  // TODO: DELETE one item to pantry
-
   try {
-  } catch (error) {}
+    const supabase = createClient();
+
+    // Parse the request URL to get the id of the item to delete
+    const url = req.nextUrl;
+    const searchParams = url.searchParams;
+    const itemId = searchParams.get("id");
+    
+
+    if (!itemId) {
+      return new NextResponse(
+        JSON.stringify({ error: "Item ID is required" }),
+        { status: 400 }
+      );
+    }
+
+    // Perform the delete operation
+    const { data, error } = await supabase
+      .from("FoodItems")
+      .delete()
+      .eq("id", itemId);
+
+    if (error) {
+      console.error("Delete error:", error);
+      return new NextResponse(
+        JSON.stringify({ error: "Failed to delete item" }),
+        { status: 500 }
+      );
+    }
+
+    return new NextResponse(
+      JSON.stringify({ success: `Deleted item with ID: ${itemId}`, ok:true}),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    return new NextResponse(
+      JSON.stringify({ error: "Failed to delete item" }),
+      { status: 500 }
+    );
+  }
 }
