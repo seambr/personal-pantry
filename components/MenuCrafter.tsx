@@ -234,7 +234,7 @@ function MenuCrafter({ foodItems }: { foodItems: FoodItemSQL[] }) {
     <div className="w-full flex flex-col items-center h-full">
       <div className="item-unit-selector flex items-center justify-center w-full gap-2 p-5">
         <Select onValueChange={handleFoodItemChange}>
-          <SelectTrigger className="w-48 min-w-48 max-w-48 ">
+          <SelectTrigger className="w-48 min-w-48 max-w-80 sm:w-80">
             <SelectValue placeholder="Select food item to add." />
           </SelectTrigger>
           <SelectContent>
