@@ -8,7 +8,7 @@ A fully responsive web app to help keep track of your food.
 </div>
 
 ## Search the USDA Food database for an item.
-<div style="display: flex; justify-content: center; gap:2em">
+<div align="center">
     <img src="./docs/search.png" alt="Search the usda food database" style="width: 75%; height: auto;"/>
 </div>
 
